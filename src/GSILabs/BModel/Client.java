@@ -7,6 +7,7 @@
 package GSILabs.BModel;
 
 import GSILabs.Exceptions.*;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 
@@ -137,21 +138,22 @@ public class Client implements Comparable{
     
     /**
      * Hace falta en BS para addCardToClient y addSale asi que hay que hacerlo bien
-     * Search a card returns its position or -1 if it doesn't exists
+     * Search a card returns if the client has this card
      * @param card
      * @return int
      */
-    /*public boolean searchCard(String card)
-    {// this method return -1 if the card isnt in the array or the position in the array
-        
-        
-        for(int i=0;i<cards.length;i++){
-            if(card.equals(cards[i])){
-                return i;
-            }
-        }
-        return -1;
-    }*/
+    public boolean searchCard(String card)
+    {// this method return if the client has this card
+       Iterator<String> cIterator=cards.iterator();
+       String aux;
+       while(cIterator.hasNext()){
+           aux=cIterator.next();
+           if(card.equals(aux)){
+               return true;
+           }
+       }
+       return false;
+    }
     
     /**
      * Text representation of a client

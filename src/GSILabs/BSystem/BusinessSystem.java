@@ -587,7 +587,7 @@ public class BusinessSystem implements TicketOffice{
         
         if ((c != null) && cCard != null)
         {
-            if(c.searchCard(cCard)==-1){
+            if(c.searchCard(cCard)==false){
                 c.addCard(cCard);
                 return true;
             }
@@ -763,7 +763,7 @@ public class BusinessSystem implements TicketOffice{
                     while (it.hasNext()){
                         auxc = it.next();
                         if (auxc.compareTo(c) == 0){
-                            if (auxc.searchCard(cCard) != -1){                       
+                            if (auxc.searchCard(cCard) ==true){                       
                                
                                 t.sold(); 
                                 t.sold(price);                              
