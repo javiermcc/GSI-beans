@@ -16,6 +16,7 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -277,19 +278,22 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public Event[] retrieveEvents(String name) {
-        CAMBIAR 
+        //CAMBIAR 
         if (name != null)
         {
-            Event[] events = new Event[1];
+            ArrayList<Event> list = new ArrayList<>();
+            
+            /*Event[] events = new Event[1];
             Event[] eventsaux;
             boolean empty=true;
-            
+            */
             Festival aux1;
             Iterator<Festival> Fiterator= festivals.iterator();
             while(Fiterator.hasNext()){
                 aux1=Fiterator.next();
                 if(aux1.getName().contains(name)){
-                    if(empty){
+                    list.add(aux1);
+                    /*if(empty){
                         events[0]=aux1;
                         empty=false;
                     }else{
@@ -299,7 +303,7 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux1;
                         events=eventsaux;
-                    }
+                    }*/
                 }
             }
             
@@ -308,7 +312,8 @@ public class BusinessSystem implements TicketOffice{
             while(Citerator.hasNext()){
                 aux2=Citerator.next();
                 if(aux2.getName().contains(name)){
-                    if(empty){
+                    list.add(aux2);
+                    /*if(empty){
                         events[0]=aux2;
                         empty=false;
                     }else{
@@ -318,7 +323,7 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux2;
                         events=eventsaux;
-                    }
+                    }*/
                 }
             }
             
@@ -327,6 +332,8 @@ public class BusinessSystem implements TicketOffice{
             while(Eiterator.hasNext()){
                 aux3=Eiterator.next();
                 if(aux3.getName().contains(name)){
+                    list.add(aux3);
+                    /*
                     if(empty){
                         events[0]=aux3;
                         empty=false;
@@ -337,9 +344,10 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux3;
                         events=eventsaux;
-                    }
+                    }*/
                 }
-                if(empty){
+                Event[] events = (Event[])list.toArray();
+                if(events.length==0){
                     return new Event[0];
                 }else{
                     return events;
@@ -357,9 +365,10 @@ public class BusinessSystem implements TicketOffice{
         
         if (loc != null)
         {
-            Event[] events = new Event[1];
+            ArrayList<Event> list = new ArrayList<>();
+            /*Event[] events = new Event[1];
             Event[] eventsaux;
-            boolean empty=true;
+            boolean empty=true;*/
             boolean added=false;
             
             Festival aux1;
@@ -370,7 +379,7 @@ public class BusinessSystem implements TicketOffice{
                 added=false;
                 for(int i=0;i<Caux.length && !added;i++){
                     if(Caux[i].getLocation().equals(loc)){
-                        if(empty){
+                        /*if(empty){
                             events[0]=aux1;
                             empty=false;
                             
@@ -381,7 +390,8 @@ public class BusinessSystem implements TicketOffice{
                             }
                             eventsaux[eventsaux.length]=aux1;
                             events=eventsaux;
-                        }
+                        }*/
+                        list.add(aux1);
                         added=true;
                     }
                 }
@@ -392,7 +402,7 @@ public class BusinessSystem implements TicketOffice{
             while(Citerator.hasNext()){
                 aux2=Citerator.next();
                 if(aux2.getLocation().equals(loc)){
-                    if(empty){
+                    /*if(empty){
                         events[0]=aux2;
                         empty=false;
                     }else{
@@ -402,7 +412,8 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux2;
                         events=eventsaux;
-                    }
+                    }*/
+                    list.add(aux2);
                 }
             }
             
@@ -411,7 +422,7 @@ public class BusinessSystem implements TicketOffice{
             while(Eiterator.hasNext()){
                 aux3=Eiterator.next();
                 if(aux3.getLocation().equals(loc)){
-                    if(empty){
+                    /*if(empty){
                         events[0]=aux3;
                         empty=false;
                     }else{
@@ -421,9 +432,11 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux3;
                         events=eventsaux;
-                    }
+                    }*/
+                    list.add(aux3);
                 }
-                if(empty){
+                Event[] events = (Event[])list.toArray();
+                if(events.length==0){
                     return new Event[0];
                 }else{
                     return events;
@@ -440,9 +453,10 @@ public class BusinessSystem implements TicketOffice{
         
         if (d != null)
         {
+            ArrayList<Event> list = new ArrayList<>();/*
             Event[] events = new Event[1];
             Event[] eventsaux;
-            boolean empty=true;
+            boolean empty=true;*/
             boolean added=false;
             
             Festival aux1;
@@ -453,7 +467,7 @@ public class BusinessSystem implements TicketOffice{
                 added=false;
                 for(int i=0;i<Caux.length && !added;i++){
                     if(Caux[i].getDates()[0].equals(d)){
-                        if(empty){
+                        /*if(empty){
                             events[0]=aux1;
                             empty=false;
                             
@@ -464,7 +478,8 @@ public class BusinessSystem implements TicketOffice{
                             }
                             eventsaux[eventsaux.length]=aux1;
                             events=eventsaux;
-                        }
+                        }*/
+                        list.add(aux1);
                         added=true;
                     }
                 }
@@ -475,7 +490,7 @@ public class BusinessSystem implements TicketOffice{
             while(Citerator.hasNext()){
                 aux2=Citerator.next();
                 if(aux2.getDates().equals(d)){
-                    if(empty){
+                    /*if(empty){
                         events[0]=aux2;
                         empty=false;
                     }else{
@@ -485,7 +500,8 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux2;
                         events=eventsaux;
-                    }
+                    }*/
+                    list.add(aux2);
                 }
             }
             
@@ -494,7 +510,7 @@ public class BusinessSystem implements TicketOffice{
             while(Eiterator.hasNext()){
                 aux3=Eiterator.next();
                 if(aux3.getDates().equals(d)){
-                    if(empty){
+                    /*if(empty){
                         events[0]=aux3;
                         empty=false;
                     }else{
@@ -504,9 +520,11 @@ public class BusinessSystem implements TicketOffice{
                         }
                         eventsaux[eventsaux.length]=aux3;
                         events=eventsaux;
-                    }
+                    }*/
+                    list.add(aux3);
                 }
-                if(empty){
+                Event[] events = (Event[])list.toArray();
+                if(events.length==0){
                     return new Event[0];
                 }else{
                     return events;
@@ -569,7 +587,7 @@ public class BusinessSystem implements TicketOffice{
         
         if ((c != null) && cCard != null)
         {
-            if(c.searchCard(cCard)==-1){
+            if(c.searchCard(cCard)==false){
                 c.addCard(cCard);
                 return true;
             }
@@ -745,7 +763,7 @@ public class BusinessSystem implements TicketOffice{
                     while (it.hasNext()){
                         auxc = it.next();
                         if (auxc.compareTo(c) == 0){
-                            if (auxc.searchCard(cCard) != -1){                       
+                            if (auxc.searchCard(cCard) ==true){                       
                                
                                 t.sold(); 
                                 t.sold(price);                              
