@@ -87,9 +87,9 @@ public class SSTest02 {
          */
         for (int i=0;i<4;i++){
             for (int j=0;j<6;j++){
-                miS.setValueAt(miArray[i][j], j+3, i+6);
+                miS.setValueAt(miArray[i][j], j+3, i+5);
                 miS.setValueAt(null, j, i);
-                miCell=miS.getCellAt(j+3,i+6);
+                miCell=miS.getCellAt(j+3,i+5);
                 if ((int)miArray[i][j]<=10){
                     miCell.setBackgroundColor(Color.red);
                 }else{
