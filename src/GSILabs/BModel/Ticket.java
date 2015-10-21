@@ -28,7 +28,6 @@ public class Ticket implements Comparable{
                                             /*If the ticket is sold, its value would be the moment of the deal*/
     private float price = 0;                // The ticket's price
     
-    
     /**
      * Constructor of the ticekt
      * @param id
@@ -37,10 +36,10 @@ public class Ticket implements Comparable{
     public Ticket (int id, Event e){
         
         this.id = id;
-        event=e;
-        identifiers=null;
-        associated=null;
-        used=false;
+        this.event = e;
+        this.identifiers = null;
+        this.associated = null;
+        this.used = false;
     }
     
     /**
@@ -52,10 +51,10 @@ public class Ticket implements Comparable{
     public Ticket (int id, Event e, Client a){
         
         this.id = id;
-        event=e;
-        identifiers=null;
-        associated=a;
-        used=false;
+        this.event = e;
+        this.identifiers = null;
+        this.associated = a;
+        this.used = false;
     }
     /**
      * It creates a Ticket that only allows one client to get into an event
@@ -67,10 +66,10 @@ public class Ticket implements Comparable{
     public Ticket (int id, Event e,int[] dnis, Client a){
         
         this.id = id;
-        event=e;
-        identifiers=dnis;
-        associated=a;
-        used=false;
+        this.event = e;
+        this.identifiers = dnis;
+        this.associated = a;
+        this.used = false;
     }
     
     /**
@@ -88,8 +87,7 @@ public class Ticket implements Comparable{
      */
     public Event getEvent(){
         
-        return event;
-        
+        return event; 
     }
     
     /**
@@ -98,8 +96,7 @@ public class Ticket implements Comparable{
      */
     public int[] getIDs(){
         
-        return this.identifiers;
-        
+        return this.identifiers; 
     }
     
     /**
@@ -117,8 +114,7 @@ public class Ticket implements Comparable{
      */
     public boolean getUsed(){
         
-        return this.used;
-        
+        return this.used; 
     }
     
     /**
@@ -128,8 +124,7 @@ public class Ticket implements Comparable{
      */
     public Date getSoldDate(){
         
-        return this.soldDate;
-        
+        return this.soldDate; 
     }
     
     /**
@@ -138,8 +133,7 @@ public class Ticket implements Comparable{
      */
     public void use(){
         
-        this.used=true;
-        
+        this.used=true;   
     }
     
     /**
@@ -148,8 +142,7 @@ public class Ticket implements Comparable{
      */
     public void sold(){
         
-        this.soldDate=new Date();
-        
+        this.soldDate=new Date(); 
     }
     
     /**
@@ -174,7 +167,6 @@ public class Ticket implements Comparable{
      * This method returns a textual description of this ticket
      * @return A string with the textual form of a ticket
      */
-    @Override
     public String toString() {
         
         if (this.getUsed())
