@@ -11,8 +11,30 @@ package GSILabs.BModel;
  * @author labora1
  */
 public class Sale {
-    Client cliente;
-    Ticket ticket;
-    int precio;
-    dsaf
+    
+    private Client client;
+    private Ticket ticket;
+    private float price;
+    
+    public Sale (Client client, Ticket ticket, float price){
+        
+        this.client = client;
+        this.ticket = ticket;
+        this.price = price;
+    }
+    
+    public Client getClient(){
+        
+        return this.client;
+    }
+    
+    public Ticket getTicket(){
+        
+        return this.ticket;
+    }
+    
+    public float getPrice(){
+        
+        return this.price;
+    }
 }
