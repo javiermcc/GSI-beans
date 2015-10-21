@@ -585,8 +585,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addCardToClient(Client c, String cCard) {
         
-        if ((c != null) && cCard != null)
-        {
+        if ((c != null) && cCard != null){
             if(c.searchCard(cCard)==false){
                 c.addCard(cCard);
                 return true;
@@ -598,8 +597,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean containsClient(Client c) {
         
-        if (c != null)
-        {
+        if (c != null){
             return clients.contains(c);
         }
         return false;
@@ -610,8 +608,7 @@ public class BusinessSystem implements TicketOffice{
         
         Client c;
         Iterator<Client> iterator = clients.iterator();
-        while(iterator.hasNext())
-        {
+        while(iterator.hasNext()){
             c = iterator.next();
             return c.getDni() == id;
         }
@@ -636,8 +633,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
         public Ticket[] getListOfTickets(Client c) {
         
-        if (c != null)
-        {
+        if (c != null){
             Ticket aux;
             Ticket[] tics = null;
             int i = 0;
@@ -921,11 +917,8 @@ public class BusinessSystem implements TicketOffice{
     public boolean existsArtist(String artistName) {
         
         if (artistName != null){
-            for (Iterator<Artist> it = artists.iterator(); it.hasNext();) {
-                Artist artist = it.next();
-                if (artist.getName().equals(artistName)) {
-                    return true;
-                }
+            if (artists.stream().anyMatch((artist) -> (artist.getName().equals(artistName)))) {
+                return true;
             }
         }
         return false;
