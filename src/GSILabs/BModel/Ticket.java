@@ -114,8 +114,6 @@ public class Ticket implements Comparable{
         return this.used; 
     }
     
-    
-    
     /**
      * Transforms the value of the field used into true.
      * A ticket that have been used can't be turned to unused.
@@ -129,35 +127,19 @@ public class Ticket implements Comparable{
      * This method returns a textual description of this ticket
      * @return A string with the textual form of a ticket
      */
+    @Override
     public String toString() {
         
-        if (this.getUsed())
-            
-            if (this.soldDate==null)
-                
+        if (this.getUsed()){
+
                 return "Ticket's ID: "+this.getId()+
                         "Ticket for the event: "+this.getEvent().toString()+"\nClient that allow to enter: "
                 +Arrays.toString(getIDs())+"\nClient associated: "+ getAssociated()+"\nThis ticket has been used";
-        
-            else
-                
-                return "Ticket's ID: "+this.getId()+
-                        "Ticket for the event: "+this.getEvent().toString()+"\nClient that allow to enter: "
-                +Arrays.toString(getIDs())+"\nClient associated: "+ getAssociated()+"\nThis ticket has been used"
-                +"Sold date: "+this.getSoldDate();
-        
-        else
-                
-            if (this.soldDate==null)
-                
+        }
+        else{
                 return "Ticket for the event: "+this.getEvent().toString()+"\nClient that allow to enter: "
                 +Arrays.toString(getIDs())+"\nClient associated: "+ getAssociated()+"\nThis ticket has not been used";
-        
-            else
-                
-                return "Ticket for the event: "+this.getEvent().toString()+"\nClient that allow to enter: "
-                +Arrays.toString(getIDs())+"\nClient associated: "+ getAssociated()+"\nThis ticket has not been used"
-                +"Sold date: "+this.getSoldDate();
+        }
         
     }
     
@@ -177,8 +159,7 @@ public class Ticket implements Comparable{
                 }
             }
         }
-        return false;
-        
+        return false; 
     }
     
     /**
