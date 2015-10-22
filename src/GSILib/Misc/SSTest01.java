@@ -85,7 +85,7 @@ public class SSTest01{
         /**
          * We close the File and then we open the SpreadSheet
          */
-        File outFile = new File("Test01.ods");
+        File outFile = new File("test01.ods");
         OOUtils.open(miS.getSpreadSheet().saveAs(outFile));
             
     }
