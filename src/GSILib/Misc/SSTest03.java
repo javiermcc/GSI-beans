@@ -31,6 +31,9 @@ public class SSTest03 {
         
         System.out.println("La tabla creada en el SSTest02");
         
+        /**
+         * For each value on the SpreadSheet we show it on the screen
+         */
         for (int i=0;i<4;i++){
             
             for (int j=0;j<6;j++){
