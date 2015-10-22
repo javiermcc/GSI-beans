@@ -98,7 +98,7 @@ public class SSTest02 {
             }
         }
         
-        File outFile = new File("Test02.ods");
+        File outFile = new File("test02.ods");
         OOUtils.open(miS.getSpreadSheet().saveAs(outFile));
             
     }
