@@ -21,9 +21,27 @@ public class SSTest03 {
     
     public static void main (String[] args) throws IOException{
         
-        // Load the file.
-        File file = new File("Test02.ods");
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
+        /**
+         * We load the file
+         * We extract a Sheet from test02.ods
+         */
+        File file = new File("test02.ods");
+        final Sheet miSheet = SpreadSheet.createFromFile(file).getSheet(0);
+        String valor;
+        
+        System.out.println("La tabla creada en el SSTest02");
+        
+        for (int i=0;i<4;i++){
+            
+            for (int j=0;j<6;j++){
+
+                valor=miSheet.getCellAt(j+3,i+5).getTextValue();
+                System.out.print(valor+" ");
+                
+            }
+            System.out.println();
+            
+        }
         
         
     }
