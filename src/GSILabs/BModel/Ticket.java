@@ -24,9 +24,6 @@ public class Ticket implements Comparable{
     private final int[] identifiers;        /*Identifies the people who are allowed by the ticket using the seat numbers, that must be unique for the event*/
     private final Client associated;        /*The client the ticket is associated to*/
     private boolean used;                   /*Its value define if a ticket have been used or not*/
-    private Date soldDate=null;             /*This value would be null if the ticket hasn't been sold*/
-                                            /*If the ticket is sold, its value would be the moment of the deal*/
-    private float price = 0;                // The ticket's price
     
     /**
      * Constructor of the ticekt
@@ -117,15 +114,7 @@ public class Ticket implements Comparable{
         return this.used; 
     }
     
-    /**
-     * This method returns the value of the soldDadte attribute. 
-     * It could be null.
-     * @return The value of soldDate
-     */
-    public Date getSoldDate(){
-        
-        return this.soldDate; 
-    }
+    
     
     /**
      * Transforms the value of the field used into true.
@@ -134,33 +123,6 @@ public class Ticket implements Comparable{
     public void use(){
         
         this.used=true;   
-    }
-    
-    /**
-     * It turns the null value of the soldDate attribute to the Date-time of the moment
-     * of the sold
-     */
-    public void sold(){
-        
-        this.soldDate=new Date(); 
-    }
-    
-    /**
-     * Sets the cost of the ticket
-     * @param price 
-     */
-    public void sold(float price){
-        
-        this.price = price;
-    }
-    
-    /**
-     * Gets the cost of the ticket
-     * @return 
-     */
-    public float getPrice(){
-        
-        return this.price;
     }
     
     /**
