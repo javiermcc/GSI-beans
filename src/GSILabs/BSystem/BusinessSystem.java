@@ -15,6 +15,7 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Performer;
+import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class BusinessSystem implements TicketOffice{
     TreeSet<Location> locations;
     TreeSet<Artist> artists;
     TreeSet<Collective> collectives;
+    TreeSet<Sale> sales;
     
     public BusinessSystem(){
         
@@ -52,8 +54,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addNewConcert(Concert c) {
         
-        if (c != null)
-        {
+        if (c != null){
             Performer[] cPerfor=c.getPerformers();
             Location auxLoc=c.getLocation();
             if (existLocation(auxLoc)){
@@ -92,8 +93,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean replaceConcert(Concert c) {
         
-        if (c != null)
-        {
+        if (c != null){
             concerts.remove(c);
             concerts.add(c);
             return concerts.contains(c);
@@ -104,8 +104,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean deleteConcert(Concert c) {
         
-        if (c != null)
-        {
+        if (c != null){
             concerts.remove(c);
             return !(concerts.contains(c));
         }
@@ -115,8 +114,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addNewExhibition(Exhibition e) {
         
-        if (e != null)
-        {
+        if (e != null){
             exhibitions.add(e);
             return exhibitions.contains(e);
         }
@@ -126,8 +124,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean replaceExhibition(Exhibition e) {
         
-        if (e != null)
-        {
+        if (e != null){
             exhibitions.remove(e);
             exhibitions.add(e);
             return exhibitions.contains(e);
@@ -138,8 +135,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean deleteExhibition(Exhibition e) {
         
-        if (e != null)
-        {
+        if (e != null){
             exhibitions.remove(e);
             return !(exhibitions.contains(e));
         }
@@ -149,8 +145,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addNewFestival(Festival f) {
         
-        if (f != null)
-        {
+        if (f != null){
             festivals.add(f);
             return festivals.contains(f);
         }
@@ -159,17 +154,15 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean addConcertToFestival(Festival f, Concert c) {
-        if ((f != null) && (c != null))
-        {
+        
+        if ((f != null) && (c != null)){
             boolean existsc = false;
             boolean existsf = false;
             Concert auxc;
             Iterator<Concert> iteratorc = concerts.iterator();
-            while (iteratorc.hasNext())
-            {
+            while (iteratorc.hasNext()){
                 auxc = iteratorc.next();
-                if (c.compareTo(auxc) == 0) // exists concert
-                {
+                if (c.compareTo(auxc) == 0){ // exists concert
                     existsc = true;
                 }
             }
@@ -178,28 +171,21 @@ public class BusinessSystem implements TicketOffice{
             Festival[] auxf2 = null;
             int i = 0;
             Iterator<Festival> iteratorf = festivals.iterator();
-            while(iteratorf.hasNext())
-            {
+            while(iteratorf.hasNext()){
                 auxf = iteratorf.next();
-                if ((auxf.getStartDate().getTime() <= c.getStartDate().getTime()) && (c.getStartDate().getTime() <= auxf.getEndingDate().getTime()))
-                {
+                if ((auxf.getStartDate().getTime() <= c.getStartDate().getTime()) && (c.getStartDate().getTime() <= auxf.getEndingDate().getTime())){
                     auxf2[i] = auxf;
                     i++;
-                    if (auxf.compareTo(f) == 0)
-                    {
+                    if (auxf.compareTo(f) == 0){
                         existsf = true;
                     }
                 }
             }   
             
-            if (existsc && existsf)
-            {
-                for (int j = 0; j < auxf2.length; j++)
-                {
-                    for (int k = 0; k < auxf2[j].getConcerts().length; k++)
-                    {
-                        if ((auxf2[j].getConcerts()[k].compareTo(c) == 0) && (auxf2[j].getConcerts()[k].getStartDate() != c.getStartDate()))
-                        {
+            if (existsc && existsf){
+                for (int j = 0; j < auxf2.length; j++){
+                    for (int k = 0; k < auxf2[j].getConcerts().length; k++){
+                        if ((auxf2[j].getConcerts()[k].compareTo(c) == 0) && (auxf2[j].getConcerts()[k].getStartDate() != c.getStartDate())){
                             f.addConcert(c);
                             Concert[] con =f.getConcerts();
                             for(Concert co :con){
@@ -654,12 +640,12 @@ public class BusinessSystem implements TicketOffice{
     public float getTotalSpending(Client c) {
         
         if (c != null){
-            Ticket aux;
+            Sale aux;
             float price = 0;
-            Iterator<Ticket> iterator = tickets.iterator();
+            Iterator<Sale> iterator = sales.iterator();
             while(iterator.hasNext()){
                 aux = iterator.next();
-                if (aux.getAssociated().compareTo(c) == 0){
+                if (aux.getClient().compareTo(c) == 0){
                     price = price + aux.getPrice();
                 }
             } 
@@ -761,9 +747,9 @@ public class BusinessSystem implements TicketOffice{
                         if (auxc.compareTo(c) == 0){
                             if (auxc.searchCard(cCard) ==true){                       
                                
-                                t.sold(); 
-                                t.sold(price);                              
-                                return true;
+                                Sale s = new Sale(c, t, price, cCard);
+                                sales.add(s);
+                                return sales.contains(s);
                             }
                         }
                     }
