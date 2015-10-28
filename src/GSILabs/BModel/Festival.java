@@ -22,6 +22,16 @@ public class Festival implements LastingEvent, Comparable{
     Date endDate;               // The date of the last concert, the festival's end date
     String name;                // The name of the festival  
     
+    
+    public Festival(Concert c,Date sd,Date ed,String n){
+        this.concerts=new TreeSet<>();
+        concerts.add(c);
+        this.startDate=sd;
+        this.endDate=ed;
+        this.name=n;
+    }
+    
+    
     /**
      * Gets the festival's start date
      * @return Date

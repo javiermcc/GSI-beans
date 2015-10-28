@@ -207,6 +207,12 @@ public class P01Tester {
          * concert to a festival that has already been added
          */
         
+        Festival festaux=new Festival(con1,con1.getStartDate(),con1.getStartDate(),"la madre que nos pario");
+        System.out.println();
+        System.out.println(festaux);
+        System.out.println();
+        System.out.println();
+        
         System.out.println("S8 no se puede añadir un mismo concierto a un festival 2 veces");
         if (busSys.addConcertToFestival(fest, con1)){
             System.out.println("Se ha añadido el concierto por segunda vez");
