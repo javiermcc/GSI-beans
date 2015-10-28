@@ -46,6 +46,7 @@ public class SSTest04 {
         String[] auxWeb;
         BusinessSystem miBs=new BusinessSystem();
         Sheet Concert,Exhibition,Festival;
+        SpreadSheet ss;
         
         a[0]=new Artist("El canijo de Jerez","Cantante");
         a[1]=new Artist("Alex Papito","Reggaetonero","www.papitoelmio.es");
@@ -85,10 +86,12 @@ public class SSTest04 {
         con[0]=new Concert(l[0],a[0],"El canijo de Jerez en Concierto",d[0]);
         miBs.addNewConcert(con[0]);
         con[1]=new Concert(l[0],c[0],"La fiesta padre",d[1]);
+        miBs.addNewConcert(con[1]);
         con[2]=new Concert(l[0],c[1],"The great Party",d[1]);
 
         f1=new Festival();
         miBs.addConcertToFestival(f1, con[1]);
+        miBs.addNewFestival(f1);
         
         d[2]=new Date(2016-1900,21,2);
         d[3]=new Date(2016-1900,21,3);
@@ -108,78 +111,84 @@ public class SSTest04 {
         DefaultTableModel model=new DefaultTableModel();
         model.setColumnCount(10);
         model.setRowCount(20);
-        SpreadSheet.createEmpty(model).saveAs(file);
+        ss=SpreadSheet.createEmpty(model);
+        ss.addSheet("Exhibtion");
+        ss.addSheet("Festival");
         
-        Concert=SpreadSheet.createFromFile(file).getSheet(0);
-        SpreadSheet.createFromFile(file).getSheet(0).setName("Concert");
-        Exhibition=SpreadSheet.addSheet("Exhibtion");
-        Festival=SpreadSheet.createFromFile(file).addSheet("Festival");
+        Concert=ss.getSheet(0);
+        ss.getSheet(0).setName("Concert");
+        Exhibition=ss.getSheet(1);
+        Exhibition.setColumnCount(10);
+        Exhibition.setRowCount(10);
+        Festival=ss.getSheet(2);
+        Festival.setColumnCount(10);
+        Festival.setRowCount(10);
         
-        /*int i=0,j=0;
+        int i=0,j=1;
         while (itConcert.hasNext()){
             
             auxCon=itConcert.next();
-            Concert.setValueAt(auxCon.getName(),j,i);
+            Concert.setValueAt(auxCon.getName(),i,j);
             i++;
-            Concert.setValueAt(auxCon.getPerformers(),j,i);
+            Concert.setValueAt(auxCon.getPerformers()[0].getName(),i,j);
             i++;
-            Concert.setValueAt(auxCon.getDates(),j,i);
+            Concert.setValueAt(auxCon.getStartDate(),i,j);
             i++;
-            Concert.setValueAt(auxCon.getLocation().getName(),j,i);
+            Concert.setValueAt(auxCon.getLocation().getName(),i,j);
             j++;
             i=0;
             
         }
         
-        j=0;
+        
+        j=1;
         while(itExhibition.hasNext()){
             
             auxEx=itExhibition.next();
-            Exhibition.setValueAt(auxEx.getName(),j,i);
+            Exhibition.setValueAt(auxEx.getName(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getOrganizer(),j,i);
+            Exhibition.setValueAt(auxEx.getOrganizer(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getStartDate(),j,i);
+            Exhibition.setValueAt(auxEx.getStartDate(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getEndingDate(),j,i);
+            Exhibition.setValueAt(auxEx.getEndingDate(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getLocation().getName(),j,i);
+            Exhibition.setValueAt(auxEx.getLocation().getName(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getPerformers(),j,i);
+            Exhibition.setValueAt(auxEx.getPerformers(),i,j);
             i++;
             auxWeb=auxEx.getWebs();
             
             for (String auxWeb1 : auxWeb) {
-                Exhibition.setValueAt(auxWeb1,j,i);
+                Exhibition.setValueAt(auxWeb1,i,j);
             }
             j++;
             i=0;
             
         }
         
-        j=0;
+        j=1;
         while (itFestival.hasNext()){
             
             Concert[] auxConcerts;
             auxFest=itFestival.next();  
-            Festival.setValueAt(auxFest.getName(),j,i);
+            Festival.setValueAt(auxFest.getName(),i,j);
             i++;
             auxConcerts=auxFest.getConcerts();
             for (Concert auxConcert : auxConcerts) {
-                Festival.setValueAt(auxConcert.getName(),j,i);
+                Festival.setValueAt(auxConcert.getName(),i,j);
                 i++;
             }
-            Festival.setValueAt(auxFest.getStartDate(),j,i);
+            Festival.setValueAt(auxFest.getStartDate(),i,j);
             i++;
-            Festival.setValueAt(auxFest.getEndingDate(),j,i);
+            Festival.setValueAt(auxFest.getEndingDate(),i,j);
             i=0;
             j++;
             
-        }   */
+        }
         
-        OOUtils.open(Concert.getSpreadSheet().saveAs(file));
-        OOUtils.open(Exhibition.getSpreadSheet().saveAs(file));
-        OOUtils.open(Festival.getSpreadSheet().saveAs(file));
+        OOUtils.open(ss.saveAs(file));
+
         
     }
     
