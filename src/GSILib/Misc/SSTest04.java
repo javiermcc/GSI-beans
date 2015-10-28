@@ -113,7 +113,7 @@ public class SSTest04 {
         /**
          * We add the two other concerts to a festival.
          */
-        f1=new Festival();
+        f1=new Festival(con[1],d[0],d[1],"En vivo Festival");
         miBs.addConcertToFestival(f1, con[1]);
         miBs.addNewFestival(f1);
         
