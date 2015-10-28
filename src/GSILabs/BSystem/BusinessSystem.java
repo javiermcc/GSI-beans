@@ -28,15 +28,15 @@ import java.util.TreeSet;
  */
 public class BusinessSystem implements TicketOffice{
     
-    TreeSet<Concert> concerts;
-    TreeSet<Exhibition> exhibitions;
-    TreeSet<Festival> festivals;
-    TreeSet<Client> clients;
-    TreeSet<Ticket> tickets;
-    TreeSet<Location> locations;
-    TreeSet<Artist> artists;
-    TreeSet<Collective> collectives;
-    TreeSet<Sale> sales;
+    public TreeSet<Concert> concerts;
+    public TreeSet<Exhibition> exhibitions;
+    public TreeSet<Festival> festivals;
+    public TreeSet<Client> clients;
+    public TreeSet<Ticket> tickets;
+    public TreeSet<Location> locations;
+    public TreeSet<Artist> artists;
+    public TreeSet<Collective> collectives;
+    public TreeSet<Sale> sales;
     
     public BusinessSystem(){
         
