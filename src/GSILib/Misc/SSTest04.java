@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
@@ -44,8 +46,6 @@ public class SSTest04 {
         String[] auxWeb;
         BusinessSystem miBs=new BusinessSystem();
         Sheet Concert,Exhibition,Festival;
-        File f=new File("test04.ods");
-
         
         a[0]=new Artist("El canijo de Jerez","Cantante");
         a[1]=new Artist("Alex Papito","Reggaetonero","www.papitoelmio.es");
@@ -104,11 +104,18 @@ public class SSTest04 {
         Iterator<Exhibition> itExhibition = miBs.exhibitions.iterator();
         Iterator<Festival> itFestival = miBs.festivals.iterator();
         
-        Concert=SpreadSheet.createFromFile(f).getSheet(0);
-        Exhibition=SpreadSheet.createFromFile(f).getSheet(1);
-        Festival=SpreadSheet.createFromFile(f).getSheet(2);
+        File file=new File("test04.ods");
+        DefaultTableModel model=new DefaultTableModel();
+        model.setColumnCount(10);
+        model.setRowCount(20);
+        SpreadSheet.createEmpty(model).saveAs(file);
         
-        int i=0,j=0;
+        Concert=SpreadSheet.createFromFile(file).getSheet(0);
+        SpreadSheet.createFromFile(file).getSheet(0).setName("Concert");
+        Exhibition=SpreadSheet.addSheet("Exhibtion");
+        Festival=SpreadSheet.createFromFile(file).addSheet("Festival");
+        
+        /*int i=0,j=0;
         while (itConcert.hasNext()){
             
             auxCon=itConcert.next();
@@ -168,8 +175,11 @@ public class SSTest04 {
             i=0;
             j++;
             
-        }
+        }   */
         
+        OOUtils.open(Concert.getSpreadSheet().saveAs(file));
+        OOUtils.open(Exhibition.getSpreadSheet().saveAs(file));
+        OOUtils.open(Festival.getSpreadSheet().saveAs(file));
         
     }
     
