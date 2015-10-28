@@ -40,14 +40,6 @@ public class Exhibition implements LastingEvent, Comparable
     }
     
     /**
-     * Gets the title of the exhibition
-     * @return the title of the exhibition
-     */
-    public String getTitle(){
-        return this.title;
-    }
-    
-    /**
      * Gets the Location of the exhibition
      * @return Location
      */    
