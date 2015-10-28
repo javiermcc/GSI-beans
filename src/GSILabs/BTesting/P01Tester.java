@@ -164,6 +164,11 @@ public class P01Tester {
         else{
             System.out.println("No se ha añadido el ticket");
         }
+        
+        String[] saux;
+        saux = (String[])cli.getCards();
+        System.out.println(saux.length);
+        
         busSys.addSale(tick2, cli, price, cli.getCards()[0]);
         busSys.addSale(tick3, cli, price, cli.getCards()[0]);
         if (busSys.addSale(tick, cli, price, cli.getCards()[0])){

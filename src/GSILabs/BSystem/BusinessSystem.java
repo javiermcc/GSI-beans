@@ -48,7 +48,7 @@ public class BusinessSystem implements TicketOffice{
         locations=new TreeSet<>();
         artists=new TreeSet<>();
         collectives=new TreeSet<>();
-        
+        sales=new TreeSet<>();
     }
 
     @Override

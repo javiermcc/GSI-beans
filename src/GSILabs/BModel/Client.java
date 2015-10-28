@@ -21,7 +21,7 @@ public class Client implements Comparable{
      * 
      */
     
-    private final int dni;                      // the identifier of the client
+    private final int dni;                      // the identifier of the client is always a 8-digit number
     private final String name;           // the name of the client
     private final String surnames;       // the surnames of the client
     private final ModelDate birthdate;   // the birthdate of the client
@@ -92,8 +92,7 @@ public class Client implements Comparable{
      */
     public String[] getCards(){
         
-        return (String[])this.cards.toArray();
-   
+        return cards.toArray(new String[cards.size()]);
     }
     
     /**
