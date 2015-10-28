@@ -185,7 +185,7 @@ public class Festival implements LastingEvent, Comparable{
      * @return Concert[]
      */
     public Concert[] getConcerts(){
-        Concert[] aux = null;
+        Concert[] aux = new Concert[concerts.size()];
         int i = 0;
         Iterator<Concert> iterator = concerts.iterator();
         while(iterator.hasNext()){
