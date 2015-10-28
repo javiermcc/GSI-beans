@@ -129,9 +129,10 @@ public class Artist implements Performer,Comparable{
      * @param a1 refers to the artist we are going to campare
      * @return True if the name is the same. False what else.
      */
-    public boolean equals(Artist a1){
+    @Override
+    public boolean equals(Object o){
         
-        return this.name.equals(a1.name);
+        return this.name.equals(((Performer)o).getName());
         
     }
     
@@ -140,11 +141,11 @@ public class Artist implements Performer,Comparable{
      * @param c The collective we are going to compare with
      * @return True if the name is the same. False what else.
      */
-    public boolean equals(Collective c){
+    /*public boolean equals(Collective c){
         
         return this.name.equals(c.getName());
         
-    }
+    }*/
     
     /**
      * Compares two artists.
@@ -154,7 +155,7 @@ public class Artist implements Performer,Comparable{
     @Override
     public int compareTo(Object o) {
 
-        return this.getName().compareTo(((Artist)o).getName());
+        return this.getName().compareTo(((Performer)o).getName());
         
     }
     

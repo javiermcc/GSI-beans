@@ -13,7 +13,7 @@ import java.util.TreeSet;
  * @author drzkn
  * version 1.0 (17/09/2015)
  */
-public class Collective implements Performer{
+public class Collective implements Performer,Comparable{
 
     /**
      * name refers to the colective's name
@@ -210,5 +210,10 @@ public class Collective implements Performer{
         return this.name.equals(a.getName());
         
     }*/
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getName().compareTo(((Performer)o).getName());
+    }
     
 }
