@@ -41,6 +41,7 @@ public class Client implements Comparable{
         this.name = name;
         this.surnames = surnames;
         this.birthdate = birthdate;
+        this.cards=new TreeSet<>();
         this.cards.add(card);
         
     }
