@@ -995,14 +995,31 @@ public class BusinessSystem implements TicketOffice{
             i++;
             valorTick=miSheet.getCellAt(i,j).getTextValue();
             i++;
-            valorUso=miSheet.getCellAt(i,j).getTextValue();
-            if (valorUso.equalsIgnoreCase("used")){
+            while (!(valorTick.equals(""))){
                 
-                auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,true);
+                valorUso=miSheet.getCellAt(i,j).getTextValue();
+                i++;
+                if (valorUso.equalsIgnoreCase("used")){
+
+                    auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,true);
+
+                }else{
+
+                    auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,false);
+
+                }
+
+                if(this.addNewTicket(auxTick))
+                    numTickets++;
                 
-            }else
+                valorTick=miSheet.getCellAt(i,j).getTextValue();
+                
+            }
             
-            
+            i=0;
+            j++;
+            valorFest = miSheet.getCellAt(i, j).getTextValue();
+
             
             
         }
