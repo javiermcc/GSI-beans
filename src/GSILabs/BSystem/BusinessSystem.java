@@ -962,7 +962,7 @@ public class BusinessSystem implements TicketOffice{
         
         int numTickets=0,i=0,j=0;
         final Sheet miSheet = SpreadSheet.createFromFile(f).getSheet(0);
-        String valor;
+        String valorFest,valorTick,valorUso;
         Festival auxFest;
         Concert auxCon;
         Date sd,ed,d;
@@ -971,6 +971,7 @@ public class BusinessSystem implements TicketOffice{
         Location auxLoc;
         Artist auxArt;
         Client auxCli;
+        Ticket auxTick;
         
         auxLoc = new Location("Localizacion por defecto",10000,"España","Navarra","Pamplona","Calle mayor",(short) 5);
         this.addLocation(auxLoc);
@@ -985,12 +986,22 @@ public class BusinessSystem implements TicketOffice{
         auxCli=new Client(1232,"Pablo","Perez",bd,"3454562");
         this.addClient(auxCli);
         
-        valor = miSheet.getCellAt(i, j).getTextValue();
-        while (valor.equals("")){
+        valorFest = miSheet.getCellAt(i, j).getTextValue();
+        while (valorFest.equals("")){
             
-            auxFest=new Festival(auxCon,sd,ed,valor);
+            auxFest=new Festival(auxCon,sd,ed,valorFest);
             this.addNewFestival(auxFest);
+            System.out.println();
             i++;
+            valorTick=miSheet.getCellAt(i,j).getTextValue();
+            i++;
+            valorUso=miSheet.getCellAt(i,j).getTextValue();
+            if (valorUso.equalsIgnoreCase("used")){
+                
+                auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,true);
+                
+            }else
+            
             
             
             
