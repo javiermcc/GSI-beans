@@ -20,7 +20,8 @@ public class SSTest05 {
         
         BusinessSystem miBs=new BusinessSystem();
         File f = new File("P05Ej02.ods");
-        miBs.importTickets(f);
+        int numTickets=miBs.importTickets(f);
+        System.out.println("Se han importado "+numTickets+" tickets");
         
     }
     
