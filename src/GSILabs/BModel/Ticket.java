@@ -68,6 +68,23 @@ public class Ticket implements Comparable{
         this.associated = a;
         this.used = false;
     }
+    
+    /**
+     * Constructor of the ticket with the associated
+     * @param id
+     * @param e
+     * @param a 
+     * @param value 
+     */
+    public Ticket (int id, Event e, Client a,boolean value){
+        
+        this.id = id;
+        this.event = e;
+        this.identifiers = null;
+        this.associated = a;
+        this.used = value;
+    }
+    
     /**
      * It creates a Ticket that only allows one client to get into an event
      * @param id
