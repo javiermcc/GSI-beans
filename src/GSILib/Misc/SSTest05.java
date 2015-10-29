@@ -6,15 +6,21 @@
 
 package GSILib.Misc;
 
+import GSILabs.BSystem.BusinessSystem;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author Labora1
  */
 public class SSTest05 {
     
-    public static void main (String[] args){
+    public static void main (String[] args) throws IOException{
         
-        
+        BusinessSystem miBs=new BusinessSystem();
+        File f = new File("P05Ej02.ods");
+        miBs.importTickets(f);
         
     }
     
