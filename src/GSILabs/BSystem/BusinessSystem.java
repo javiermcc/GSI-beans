@@ -17,10 +17,14 @@ import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
+import org.jopendocument.dom.spreadsheet.Sheet;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
  *
@@ -942,6 +946,60 @@ public class BusinessSystem implements TicketOffice{
             }
         }
         return null;
+    }
+    
+    /**
+     * This method import a number of tickets froma a, existent  file in ods format.
+     * This file must only have one page.
+     * Before inserting all the tickets we are going to create some default objects to let our system
+     * works as it has to.
+     * This method is proved in GSILib.Misc.SSTest05.
+     * @param f the file in ods format
+     * @return the numbers of tickets imported correctly
+     * @throws IOException 
+     */
+    public int importTickets (File f) throws IOException{
+        
+        int numTickets=0,i=0,j=0;
+        final Sheet miSheet = SpreadSheet.createFromFile(f).getSheet(0);
+        String valor;
+        Festival auxFest;
+        Concert auxCon;
+        Date sd,ed,d;
+        ModelDate bd;
+        String name;
+        Location auxLoc;
+        Artist auxArt;
+        Client auxCli;
+        
+        auxLoc = new Location("Localizacion por defecto",10000,"España","Navarra","Pamplona","Calle mayor",(short) 5);
+        this.addLocation(auxLoc);
+        sd = new Date(2016-1900,10,2);
+        ed = new Date(2016-1900,10,4);
+        d = new Date(2016-1900,10,1);
+        bd=new ModelDate(1996,10,1);
+        auxArt = new Artist("artista por defecto","Descripcion por defecto","Descripcion por defecto");
+        this.addArtist(auxArt);
+        auxCon = new Concert(auxLoc,auxArt,"Concierto por defecto",d);
+        this.addNewConcert(auxCon);
+        auxCli=new Client(1232,"Pablo","Perez",bd,"3454562");
+        this.addClient(auxCli);
+        
+        valor = miSheet.getCellAt(i, j).getTextValue();
+        while (valor.equals("")){
+            
+            auxFest=new Festival(auxCon,sd,ed,valor);
+            this.addNewFestival(auxFest);
+            i++;
+            
+            
+            
+        }
+        
+        
+        return numTickets;
+
+        
     }
     
 }
