@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
+import org.jopendocument.dom.spreadsheet.TableGroup;
 
 /**
  *
@@ -960,8 +961,10 @@ public class BusinessSystem implements TicketOffice{
      */
     public int importTickets (File f) throws IOException{
         
-        int numTickets=0,i=0,j=0;
+        int numTickets=0,j=0;
         final Sheet miSheet = SpreadSheet.createFromFile(f).getSheet(0);
+        final TableGroup miTable = miSheet.getRowGroup();
+        int rows=miSheet.getRowCount(),columns=miSheet.getColumnCount();
         String valorFest,valorTick,valorUso;
         Festival auxFest;
         Concert auxCon;
@@ -986,47 +989,43 @@ public class BusinessSystem implements TicketOffice{
         auxCli=new Client(1232,"Pablo","Perez",bd,"3454562");
         this.addClient(auxCli);
         
-        valorFest = miSheet.getCellAt(i, j).getTextValue();
-        while (valorFest.equals("")){
-            
+        for (int i=0;i<rows;i++){
+        
+            valorFest = miSheet.getCellAt(j,i).getTextValue();
             auxFest=new Festival(auxCon,sd,ed,valorFest);
             this.addNewFestival(auxFest);
-            System.out.println();
-            i++;
-            valorTick=miSheet.getCellAt(i,j).getTextValue();
-            i++;
-            while (!(valorTick.equals(""))){
+            System.out.print(auxFest.getName());
+            j++;
+            for (int h=j;j<columns;j++){
                 
-                valorUso=miSheet.getCellAt(i,j).getTextValue();
-                i++;
-                if (valorUso.equalsIgnoreCase("used")){
+                valorTick=miSheet.getCellAt(h,i).getTextValue();
+                System.out.print(valorTick);
+                if(!(valorTick.equals(""))){
+                    
+                    h++;
+                    valorUso=miSheet.getCellAt(h,i).getTextValue();
+                    System.out.print(valorUso);
+                    h++;
+                    if (valorUso.equalsIgnoreCase(" used ")){
 
-                    auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,true);
+                        auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,true);
 
-                }else{
+                    }else{
 
-                    auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,false);
+                        auxTick=new Ticket(Integer.parseInt(valorTick),auxFest,auxCli,false);
 
+                    }
+                    if(this.addNewTicket(auxTick))
+                        numTickets++;
+                    
                 }
-
-                if(this.addNewTicket(auxTick))
-                    numTickets++;
-                
-                valorTick=miSheet.getCellAt(i,j).getTextValue();
                 
             }
-            
-            i=0;
-            j++;
-            valorFest = miSheet.getCellAt(i, j).getTextValue();
-
-            
+            System.out.println();
             
         }
         
-        
         return numTickets;
-
         
     }
     
