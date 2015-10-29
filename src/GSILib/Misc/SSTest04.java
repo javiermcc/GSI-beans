@@ -206,7 +206,7 @@ public class SSTest04 {
             i++;
             Exhibition.setValueAt(auxEx.getLocation().getName(),i,j);
             i++;
-            Exhibition.setValueAt(auxEx.getPerformers(),i,j);
+            Exhibition.setValueAt(auxEx.getPerformers()[0].getName(),i,j);
             i++;
             auxWeb=auxEx.getWebs();
             
