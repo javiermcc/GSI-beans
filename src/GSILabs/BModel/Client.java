@@ -7,6 +7,8 @@
 package GSILabs.BModel;
 
 import GSILabs.Exceptions.*;
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -15,7 +17,7 @@ import java.util.TreeSet;
  *
  * @author elementary
  */
-public class Client implements Comparable{
+public class Client implements Comparable, XMLRepresentable{
     
     /**
      * 
@@ -228,6 +230,21 @@ public class Client implements Comparable{
                 return this.getName().compareTo(((Client)o).getName());
             }
             return i;*/
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

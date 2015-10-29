@@ -5,6 +5,8 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,7 +17,7 @@ import java.util.TreeSet;
  *
  * @author linux1
  */
-public class Festival implements LastingEvent, Comparable{
+public class Festival implements LastingEvent, Comparable, XMLRepresentable{
 
     TreeSet<Concert> concerts;  // The concerts that make a festival
     Date startDate;             // The date of the first concert, the festival's start date
@@ -194,6 +196,21 @@ public class Festival implements LastingEvent, Comparable{
             i++;
         }
         return aux;
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

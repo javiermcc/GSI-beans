@@ -6,13 +6,15 @@
 package GSILabs.BModel;
 
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.Date;
 
 /**
  *
  * @author linux1
  */
-public class Concert implements ImpermanentEvent,Comparable {
+public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
     
     private Location location; //the location of the concert
     private Performer performer; // the performer of the concert
@@ -152,6 +154,21 @@ public class Concert implements ImpermanentEvent,Comparable {
             s=s+"  "+aux1.getName()+"\n";
         }
         return s;
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

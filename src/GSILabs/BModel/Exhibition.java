@@ -5,14 +5,15 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.Date;
 
 /**
  *
  * @author elementary
  */
-public class Exhibition implements LastingEvent, Comparable
-{
+public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
     private String title;               // the title of the exhibition
     private String organizer;           // the organizer of the exhibition
     private Date[] timetable;           // the Dates that the exhibition will open on chronologic order
@@ -29,8 +30,7 @@ public class Exhibition implements LastingEvent, Comparable
      * @param protagonist
      * @param webs 
      */
-    public Exhibition(String title, String organizer, Date[] timetable,Location location, Performer protagonist, String[] webs)
-    {
+    public Exhibition(String title, String organizer, Date[] timetable,Location location, Performer protagonist, String[] webs){
         this.title = title;
         this.organizer = organizer;
         this.timetable = timetable;
@@ -60,8 +60,7 @@ public class Exhibition implements LastingEvent, Comparable
      * Gets the exhibition's organizer
      * @return String
      */
-    public String getOrganizer()
-    {
+    public String getOrganizer(){
         return this.organizer;  
     }
     
@@ -96,8 +95,7 @@ public class Exhibition implements LastingEvent, Comparable
      * Gets the exhibition's webs
      * @return String[]
      */
-    public String[] getWebs()
-    {
+    public String[] getWebs(){
         return this.webs;
     }
 
@@ -159,8 +157,7 @@ public class Exhibition implements LastingEvent, Comparable
      * @return int, 0 if are the same
      */
     @Override
-    public int compareTo(Object o)
-    {
+    public int compareTo(Object o){
         int i = this.getStartDate().compareTo(((Exhibition)o).getStartDate());
         if (i == 0)
         {
@@ -187,5 +184,20 @@ public class Exhibition implements LastingEvent, Comparable
             s=s+"  "+aux1.getName()+"\n";
         }
         return s;
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

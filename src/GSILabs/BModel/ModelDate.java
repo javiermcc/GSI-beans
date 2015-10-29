@@ -5,11 +5,14 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
+
 /**
  *
  * @author drzkn
  */
-public class ModelDate {
+public class ModelDate implements XMLRepresentable{
     
     private final int year;     // Date's year
     private final int month;    // Date's month
@@ -68,6 +71,21 @@ public class ModelDate {
         
         return getYear()+"-"+getMonth()+"-"+getDay();
         
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -5,11 +5,14 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
+
 /**
  *
  * @author elementary
  */
-public class Location implements Comparable{
+public class Location implements Comparable, XMLRepresentable{
     
     private final String name;      // the name of the location
     private final int capacity;     // the capacity of the location
@@ -216,5 +219,20 @@ public class Location implements Comparable{
         }
         return p;
    } 
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

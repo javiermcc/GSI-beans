@@ -5,13 +5,16 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
+
 /**
  * Artist implements the interface Performer. Each artist has a unique name and
  * a description. It's possible to an artist to have or not a webpage.
  * @author drzkn
  * @version 1.0 (17/9/2015)
  */
-public class Artist implements Performer,Comparable{
+public class Artist implements Performer,Comparable, XMLRepresentable{
 
     /**
      * name refers to the artist's name
@@ -157,6 +160,21 @@ public class Artist implements Performer,Comparable{
 
         return this.getName().compareTo(((Performer)o).getName());
         
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

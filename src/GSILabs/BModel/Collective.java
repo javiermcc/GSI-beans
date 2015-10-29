@@ -5,6 +5,8 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.TreeSet;
 
 /**
@@ -13,7 +15,7 @@ import java.util.TreeSet;
  * @author drzkn
  * version 1.0 (17/09/2015)
  */
-public class Collective implements Performer,Comparable{
+public class Collective implements Performer,Comparable, XMLRepresentable{
 
     /**
      * name refers to the colective's name
@@ -214,6 +216,21 @@ public class Collective implements Performer,Comparable{
     @Override
     public int compareTo(Object o) {
         return this.getName().compareTo(((Performer)o).getName());
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

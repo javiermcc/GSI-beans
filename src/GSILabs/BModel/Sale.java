@@ -6,13 +6,15 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import java.io.File;
 import java.util.Date;
 
 /**
  *
  * @author labora1
  */
-public class Sale implements Comparable{
+public class Sale implements Comparable, XMLRepresentable{
     
     private Client client;
     private Ticket ticket;
@@ -71,5 +73,20 @@ public class Sale implements Comparable{
             return this.ticket.getEvent().getName().compareTo(((Sale)o).getTicket().getEvent().getName());
         }
         
+    }
+
+    @Override
+    public String toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
