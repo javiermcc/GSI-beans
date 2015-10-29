@@ -40,6 +40,21 @@ public class Ticket implements Comparable{
     }
     
     /**
+     * Constructor of the ticekt
+     * @param id
+     * @param e 
+     * @param value 
+     */
+    public Ticket (int id, Event e,boolean value){
+        
+        this.id = id;
+        this.event = e;
+        this.identifiers = null;
+        this.associated = null;
+        this.used = value;
+    }
+    
+    /**
      * Constructor of the ticket with the associated
      * @param id
      * @param e
