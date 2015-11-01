@@ -847,6 +847,9 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addArtist(Artist a) {
         artists.add(a);
+        //File f = new File("/home/elementary/prueba.xml");
+        //artists.first().saveToXML(f);
+        //artists.first().saveToXML("/home/elementary/prueba.xml");
         return existsArtist(a.getName());
     }
 
