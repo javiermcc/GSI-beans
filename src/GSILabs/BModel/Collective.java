@@ -262,7 +262,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        // root elements
+        // root elements (collective)
         Document doc = docBuilder.newDocument();
         Element rootElement = doc.createElement("collective");
         doc.appendChild(rootElement);
@@ -272,7 +272,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         name.appendChild(doc.createTextNode(this.getName()));
         rootElement.appendChild(name);
         
-        // cards elements
+        // artists elements
         Element artists = doc.createElement("artists");
         rootElement.appendChild(artists);
 

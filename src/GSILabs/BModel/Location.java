@@ -7,6 +7,22 @@ package GSILabs.BModel;
 
 import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -222,17 +238,113 @@ public class Location implements Comparable, XMLRepresentable{
 
     @Override
     public String toXML() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("location");
+        doc.appendChild(rootElement);
+        
+        // name elements
+        Element xName = doc.createElement("name");
+        xName.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xName);
+
+        // capacity elements
+        Element xCapacity = doc.createElement("capacity");
+        xCapacity.appendChild(doc.createTextNode(Integer.toString(this.getCapacity())));
+        rootElement.appendChild(xCapacity);
+        
+        // country elements
+        Element xCountry = doc.createElement("country");
+        xCountry.appendChild(doc.createTextNode(this.getCountry()));
+        rootElement.appendChild(xCountry);
+        
+        // province elements
+        Element xProvince = doc.createElement("province");
+        xProvince.appendChild(doc.createTextNode(this.getCountry()));
+        rootElement.appendChild(xProvince);
+        
+        // city elements
+        Element xCity = doc.createElement("city");
+        xCity.appendChild(doc.createTextNode(this.getCountry()));
+        rootElement.appendChild(xCity);
+        
+        // province elements
+        Element xStreet = doc.createElement("street");
+        xStreet.appendChild(doc.createTextNode(this.getCountry()));
+        rootElement.appendChild(xStreet);
+        
+        // province elements
+        Element xNumber = doc.createElement("number");
+        xNumber.appendChild(doc.createTextNode(this.getCountry()));
+        rootElement.appendChild(xNumber);
+        
+        
+        if (this.getWeb() != null){
+            // web elements
+            Element web = doc.createElement("web");
+            web.appendChild(doc.createTextNode(this.getWeb()));
+            rootElement.appendChild(web);
+        }
+        
+        // write the content into string
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        StringWriter outWriter = new StringWriter();
+        StreamResult result = new StreamResult( outWriter );
+
+        transformer.transform(source, result);
+        StringBuffer sb = outWriter.getBuffer(); 
+        String finalstring = sb.toString();
+       
+        return finalstring;
+        
+
+        } catch (ParserConfigurationException pce) {
+              pce.printStackTrace();
+        } catch (TransformerException tfe) {
+              tfe.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public boolean saveToXML(File f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String toXML = this.toXML();
+
+        try {
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean saveToXML(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String toXML = this.toXML();
+       
+        try { 
+            File f = new File(filePath);
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
     
 }

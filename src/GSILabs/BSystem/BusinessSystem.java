@@ -557,9 +557,6 @@ public class BusinessSystem implements TicketOffice{
         
         if ((c != null) && (ageMajority(c.getBirthdate()))){
             clients.add(c);
-            //File f = new File("/home/elementary/prueba.xml");
-            //clients.first().saveToXML(f);
-            //clients.first().saveToXML("/home/elementary/prueba.xml");
             return clients.contains(c);
         }
         return false;
@@ -850,17 +847,12 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addArtist(Artist a) {
         artists.add(a);
-        //File f = new File("/home/elementary/prueba.xml");
-        //artists.first().saveToXML(f);
-        //artists.first().saveToXML("/home/elementary/prueba.xml");
         return existsArtist(a.getName());
     }
 
     @Override
     public boolean addCollective(Collective c) {
         collectives.add(c);
-        //File f = new File("/home/elementary/prueba.xml");
-        //collectives.first().saveToXML(f);
         return existsCollective(c.getName());
     }
 

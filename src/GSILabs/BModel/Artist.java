@@ -189,7 +189,7 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        // root elements
+        // root elements (artist)
         Document doc = docBuilder.newDocument();
         Element rootElement = doc.createElement("artist");
         doc.appendChild(rootElement);

@@ -278,7 +278,7 @@ public class Client implements Comparable, XMLRepresentable{
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        // root elements
+        // root elements (client)
         Document doc = docBuilder.newDocument();
         Element rootElement = doc.createElement("client");
         doc.appendChild(rootElement);
