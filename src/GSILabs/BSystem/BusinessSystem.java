@@ -557,6 +557,9 @@ public class BusinessSystem implements TicketOffice{
         
         if ((c != null) && (ageMajority(c.getBirthdate()))){
             clients.add(c);
+            //File f = new File("/home/elementary/prueba.xml");
+            //clients.first().saveToXML(f);
+            //clients.first().saveToXML("/home/elementary/prueba.xml");
             return clients.contains(c);
         }
         return false;

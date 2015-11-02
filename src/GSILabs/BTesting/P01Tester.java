@@ -15,6 +15,7 @@ import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Festival;
 import GSILabs.BModel.Ticket;
 import GSILabs.BSystem.BusinessSystem;
+import java.io.File;
 import java.sql.Date;
 
 /**
@@ -253,8 +254,11 @@ public class P01Tester {
         }else{
             System.out.println("No se puede añadir un cliente menor de edad");
         }
-        
-        
+        /*
+        busSys.clients.first().addCard("77777777");
+        File f = new File("/home/elementary/prueba.xml");
+        busSys.clients.first().saveToXML(f);
+        */
     }
     
 }

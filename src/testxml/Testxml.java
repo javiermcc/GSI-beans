@@ -108,7 +108,7 @@ public static void main(String argv[]) {
         
        
         
-        StreamResult result = new StreamResult(new File("/home/linux1/NetBeansProjects/testxml/prueba.xml"));
+        StreamResult result = new StreamResult(new File("/home/elementary/test.xml"));
 
         
         StringWriter test=new StringWriter();
@@ -122,13 +122,9 @@ public static void main(String argv[]) {
         
         transformer.transform(source, result);
         
-        System.out.println(test.toString());
-        String r=test.toString();
-        
-        System.out.println();
-        System.out.println();
-        System.out.println(r);
-        
+        //System.out.println(test.toString());
+        //String r=test.toString();
+       
 
         //System.out.println("File saved!");
 

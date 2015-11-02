@@ -195,25 +195,25 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
         doc.appendChild(rootElement);
 
 
-        // firstname elements
+        // name elements
         Element name = doc.createElement("name");
         name.appendChild(doc.createTextNode(this.getName()));
         rootElement.appendChild(name);
 
-        // nickname elements
+        // description elements
         Element description = doc.createElement("description");
         description.appendChild(doc.createTextNode(this.getWorkDescription()));
         rootElement.appendChild(description);
 
         if (this.getWeb() != null){
-            // salary elements
+            // web elements
             Element web = doc.createElement("web");
             web.appendChild(doc.createTextNode(this.getWeb()));
             rootElement.appendChild(web);
         }
 
         
-        // write the content into xml file
+        // write the content into string
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
