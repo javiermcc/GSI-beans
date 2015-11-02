@@ -285,24 +285,24 @@ public class Client implements Comparable, XMLRepresentable{
 
 
         // dni elements
-        Element dni = doc.createElement("dni");
-        dni.appendChild(doc.createTextNode(Integer.toString(this.getDni())));
-        rootElement.appendChild(dni);
+        Element xDni = doc.createElement("dni");
+        xDni.appendChild(doc.createTextNode(Integer.toString(this.getDni())));
+        rootElement.appendChild(xDni);
         
         // name elements
-        Element name = doc.createElement("name");
-        name.appendChild(doc.createTextNode(this.getName()));
-        rootElement.appendChild(name);
+        Element xName = doc.createElement("name");
+        xName.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xName);
 
         // surnames elements
-        Element surnames = doc.createElement("surnames");
-        surnames.appendChild(doc.createTextNode(this.getSurnames()));
-        rootElement.appendChild(surnames);
+        Element xSurnames = doc.createElement("surnames");
+        xSurnames.appendChild(doc.createTextNode(this.getSurnames()));
+        rootElement.appendChild(xSurnames);
         
         // birthdate elements
-        Element birthdate = doc.createElement("birthdate");
-        birthdate.appendChild(doc.createTextNode(this.getBirthdate().toString()));
-        rootElement.appendChild(birthdate);
+        Element xBirthdate = doc.createElement("birthdate");
+        xBirthdate.appendChild(doc.createTextNode(this.getBirthdate().toString()));
+        rootElement.appendChild(xBirthdate);
         
         // cards elements
         Element cCards = doc.createElement("cards");
@@ -311,14 +311,14 @@ public class Client implements Comparable, XMLRepresentable{
         for (int i = 0; i < cards.size(); i++){
 
             // cards elements
-            Element card = doc.createElement("card");
-            card.appendChild(doc.createTextNode(this.searchCard(i)));
-            cCards.appendChild(card);
+            Element xCard = doc.createElement("card");
+            xCard.appendChild(doc.createTextNode(this.searchCard(i)));
+            cCards.appendChild(xCard);
             
             // set attribute to card element
             Attr attr = doc.createAttribute("card");
             attr.setValue(Integer.toString(i));
-            card.setAttributeNode(attr);
+            xCard.setAttributeNode(attr);
 
         }
         // write the content into string

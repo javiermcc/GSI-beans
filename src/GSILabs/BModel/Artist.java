@@ -196,20 +196,20 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
 
 
         // name elements
-        Element name = doc.createElement("name");
-        name.appendChild(doc.createTextNode(this.getName()));
-        rootElement.appendChild(name);
+        Element xName = doc.createElement("name");
+        xName.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xName);
 
         // description elements
-        Element description = doc.createElement("description");
-        description.appendChild(doc.createTextNode(this.getWorkDescription()));
-        rootElement.appendChild(description);
+        Element xDescription = doc.createElement("description");
+        xDescription.appendChild(doc.createTextNode(this.getWorkDescription()));
+        rootElement.appendChild(xDescription);
 
         if (this.getWeb() != null){
             // web elements
-            Element web = doc.createElement("web");
-            web.appendChild(doc.createTextNode(this.getWeb()));
-            rootElement.appendChild(web);
+            Element xWeb = doc.createElement("web");
+            xWeb.appendChild(doc.createTextNode(this.getWeb()));
+            rootElement.appendChild(xWeb);
         }
 
         

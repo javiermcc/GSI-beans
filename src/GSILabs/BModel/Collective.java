@@ -268,9 +268,9 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         doc.appendChild(rootElement);
 
         // name elements
-        Element name = doc.createElement("name");
-        name.appendChild(doc.createTextNode(this.getName()));
-        rootElement.appendChild(name);
+        Element xName = doc.createElement("name");
+        xName.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xName);
         
         // artists elements
         Element artists = doc.createElement("artists");
@@ -279,22 +279,22 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         for (int i = 0; i < components.size(); i++){
 
             // cards elements
-            Element artist = doc.createElement("artist");
-            artist.appendChild(doc.createTextNode(this.getComponents(i).toXML()));//this.getComponents(i)
-            artists.appendChild(artist);
+            Element xArtist = doc.createElement("artist");
+            xArtist.appendChild(doc.createTextNode(this.getComponents(i).toXML()));//this.getComponents(i)
+            artists.appendChild(xArtist);
             
             // set attribute to artist element
             Attr attr = doc.createAttribute("artist");
             attr.setValue(Integer.toString(i));
-            artist.setAttributeNode(attr);
+            xArtist.setAttributeNode(attr);
 
         }
 
         if (this.getWeb() != null){
             // web elements
-            Element web = doc.createElement("web");
-            web.appendChild(doc.createTextNode(this.getWeb()));
-            rootElement.appendChild(web);
+            Element xWeb = doc.createElement("web");
+            xWeb.appendChild(doc.createTextNode(this.getWeb()));
+            rootElement.appendChild(xWeb);
         }
         
         
