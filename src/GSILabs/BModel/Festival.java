@@ -33,6 +33,15 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
         this.name=n;
     }
     
+    public Festival(Date sd,Date ed,String n){
+        
+        this.concerts=new TreeSet<>();
+        this.startDate=sd;
+        this.endDate=ed;
+        this.name=n;
+        
+    }
+    
     
     /**
      * Gets the festival's start date
