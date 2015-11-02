@@ -859,6 +859,8 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addCollective(Collective c) {
         collectives.add(c);
+        //File f = new File("/home/elementary/prueba.xml");
+        //collectives.first().saveToXML(f);
         return existsCollective(c.getName());
     }
 

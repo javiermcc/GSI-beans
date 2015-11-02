@@ -7,7 +7,24 @@ package GSILabs.BModel;
 
 import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *  Colective class implements Performer interface. A colective is a group of 
@@ -147,6 +164,25 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         return !(this.components.contains(a));
         
     }
+    
+    public Artist getComponents(int pos){
+        // String
+        Artist aux;
+        String ret;
+        int i = 0;
+        Iterator<Artist> iterator = components.iterator();
+        while(iterator.hasNext()){
+
+            aux = iterator.next();
+            if (i == pos){
+                //ret = aux.getName();
+                return aux;// ret
+            }
+            i++;
+        }
+        return null;
+    }
+    
      /**
      * Retrieves the components of the collective in a Artist[]
      * @return An array with all the components
@@ -220,17 +256,101 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
     @Override
     public String toXML() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("collective");
+        doc.appendChild(rootElement);
+
+        // name elements
+        Element name = doc.createElement("name");
+        name.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(name);
+        
+        // cards elements
+        Element artists = doc.createElement("artists");
+        rootElement.appendChild(artists);
+
+        for (int i = 0; i < components.size(); i++){
+
+            // cards elements
+            Element artist = doc.createElement("artist");
+            artist.appendChild(doc.createTextNode(this.getComponents(i).toXML()));//this.getComponents(i)
+            artists.appendChild(artist);
+            
+            // set attribute to artist element
+            Attr attr = doc.createAttribute("artist");
+            attr.setValue(Integer.toString(i));
+            artist.setAttributeNode(attr);
+
+        }
+
+        if (this.getWeb() != null){
+            // web elements
+            Element web = doc.createElement("web");
+            web.appendChild(doc.createTextNode(this.getWeb()));
+            rootElement.appendChild(web);
+        }
+        
+        
+        // write the content into string
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        StringWriter outWriter = new StringWriter();
+        StreamResult result = new StreamResult( outWriter );
+
+        transformer.transform(source, result);
+        StringBuffer sb = outWriter.getBuffer(); 
+        String finalstring = sb.toString();
+       
+        return finalstring;
+        
+
+        } catch (ParserConfigurationException pce) {
+              pce.printStackTrace();
+        } catch (TransformerException tfe) {
+              tfe.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public boolean saveToXML(File f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String toXML = this.toXML();
+
+        try {
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean saveToXML(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String toXML = this.toXML();
+       
+        try { 
+            File f = new File(filePath);
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
     
 }
