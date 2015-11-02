@@ -19,6 +19,7 @@ import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -1023,6 +1024,133 @@ public class BusinessSystem implements TicketOffice{
         }
         
         return numTickets;
+        
+    }
+    
+    /**
+     * This method is used to import Festivals from an excel file to our instance of businessSystem
+     * The excel may have the next structure:
+     *      Every festival will be defined on a group of rows
+     *      The first row will have the name and the two dates of a festival
+     *      The other rows will have the name of the concert, location and performer
+     *      Each concert will have one only row
+     *      To separate one festival from another there will be a blank line
+     * If there are performers or concerts that are not introduced in our instance of BusinessSystem we won't be able to import 
+     * the festival
+     * @param f the file to import
+     * @return the number of festivals imported correctly
+     */
+    public int importFestivals(File f) throws IOException{
+        
+        int numFest=0,capacity;
+        short number;
+        final Sheet miSheet = SpreadSheet.createFromFile(f).getSheet(0);
+        final TableGroup miTable = miSheet.getRowGroup();
+        int rows=miSheet.getRowCount(),columns=miSheet.getColumnCount();
+        String nameFest,namePerf,nameLoc,nameCon,country,province,city,street;
+        String EOF;
+        boolean existPerf,esPrimera=true;
+        Date ed,sd,auxDate;
+        Location auxLoc;
+        Festival fest;
+        
+        /*
+        We will introduce one performer and one artist non-automatic way
+        */
+        Location l;
+        Concert c;
+        Collective col;
+        Date d;
+        Artist a[]=new Artist[2];
+        
+        l=new Location("Plaza de los fueros",3000,"Spain","Navarra","Pamplona","Avenida Zaragoza",(short) 1);
+        this.addLocation(l);
+        a[0]=new Artist("Peio Reparaz","Cantante y trompetista");
+        a[1]=new Artist("Luisillo Kalandraka","Cantante");
+        this.addArtist(a[0]);
+        this.addArtist(a[1]);
+        col=new Collective("Vendetta",a[0],a[1],"Grupo de ska");
+        this.addCollective(col);
+        d=new Date(2014-1900,07,07);
+        
+        for (int i=0;i<rows;i++){
+            
+            int j=0;
+            //if (!esPrimera)
+              //  i++;
+            System.out.println(i);
+            //Festival data    
+            nameFest=miSheet.getCellAt(j, i).getTextValue();
+            System.out.println(nameFest);
+            if(nameFest.equalsIgnoreCase("end of file"))
+                break;
+            j++;
+            sd=new Date(miSheet.getCellAt(j,i).getTextValue());
+            j++;
+            ed=new Date(miSheet.getCellAt(j,i).getTextValue());
+            j=0;
+            i++;
+            fest=new Festival(sd,ed,nameFest);
+            
+            //Location data
+            nameLoc=miSheet.getCellAt(j, i).getTextValue();
+            j++;
+            capacity=Integer.parseInt(miSheet.getCellAt(j, i).getTextValue());
+            j++;
+            country=miSheet.getCellAt(j, i).getTextValue();
+            j++;
+            province=miSheet.getCellAt(j, i).getTextValue();
+            j++;
+            city=miSheet.getCellAt(j, i).getTextValue();
+            j++;
+            street=miSheet.getCellAt(j, i).getTextValue();
+            j++;
+            number=(short)Integer.parseInt(miSheet.getCellAt(j, i).getTextValue());
+            i++;
+            auxLoc=new Location(nameLoc,capacity,country,province,city,street,number);
+            if(!(this.existLocation(auxLoc)))
+                this.addLocation(auxLoc);
+                
+
+            j=0;
+            while (!(miSheet.getCellAt(j,i).getTextValue().equals(""))){
+                
+                //i++;
+                nameCon=miSheet.getCellAt(j,i).getTextValue();
+                System.out.print(nameCon);
+                j++;
+                namePerf=miSheet.getCellAt(j,i).getTextValue();
+                System.out.print(namePerf);
+                j++;
+                System.out.print(miSheet.getCellAt(j,i).getTextValue());
+                auxDate=new Date(miSheet.getCellAt(j,i).getTextValue());
+                j=0;
+                existPerf=this.existsPerformer(namePerf);
+                //if the Performer exists we create a new instance of concert and we add it to the curretn festival
+                if (existPerf){
+                    Concert auxConcert;
+                    auxConcert=new Concert(auxLoc,this.retrievePerformer(namePerf),nameCon,d);
+                    fest.addConcert(auxConcert);
+                }else{
+                    System.out.println("No se puede añadir este conceierto porque no existe el performer");
+                }
+                i++;
+                j=0;
+                esPrimera=false;
+            
+            }
+            
+            if (miSheet.getCellAt(j, i).getTextValue().isEmpty()){
+                
+                i++;
+                this.addNewFestival(fest);
+                numFest++;
+            }
+                
+            
+        }
+        
+        return numFest;
         
     }
     
