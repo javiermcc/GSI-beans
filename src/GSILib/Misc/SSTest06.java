@@ -20,7 +20,7 @@ public class SSTest06 {
         BusinessSystem miBs=new BusinessSystem();
         File f = new File("P05EjExtra.ods");
         int numFest=miBs.importFestivals(f);
-        System.out.println("Se han importado "+numFest+" tickets");
+        System.out.println("Se han importado "+numFest+" festivales");
         
     }
     
