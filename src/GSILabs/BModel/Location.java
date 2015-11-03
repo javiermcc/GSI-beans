@@ -20,7 +20,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -266,30 +265,30 @@ public class Location implements Comparable, XMLRepresentable{
         
         // province elements
         Element xProvince = doc.createElement("province");
-        xProvince.appendChild(doc.createTextNode(this.getCountry()));
+        xProvince.appendChild(doc.createTextNode(this.getProvince()));
         rootElement.appendChild(xProvince);
         
         // city elements
         Element xCity = doc.createElement("city");
-        xCity.appendChild(doc.createTextNode(this.getCountry()));
+        xCity.appendChild(doc.createTextNode(this.getCity()));
         rootElement.appendChild(xCity);
         
-        // province elements
+        // street elements
         Element xStreet = doc.createElement("street");
-        xStreet.appendChild(doc.createTextNode(this.getCountry()));
+        xStreet.appendChild(doc.createTextNode(this.getStreet()));
         rootElement.appendChild(xStreet);
         
-        // province elements
+        // number elements
         Element xNumber = doc.createElement("number");
-        xNumber.appendChild(doc.createTextNode(this.getCountry()));
+        xNumber.appendChild(doc.createTextNode(Integer.toString(this.getNumber())));
         rootElement.appendChild(xNumber);
         
         
         if (this.getWeb() != null){
             // web elements
-            Element web = doc.createElement("web");
-            web.appendChild(doc.createTextNode(this.getWeb()));
-            rootElement.appendChild(web);
+            Element xWeb = doc.createElement("web");
+            xWeb.appendChild(doc.createTextNode(this.getWeb()));
+            rootElement.appendChild(xWeb);
         }
         
         // write the content into string
