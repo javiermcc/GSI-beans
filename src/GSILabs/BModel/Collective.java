@@ -165,8 +165,8 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         
     }
     
-    public Artist getComponents(int pos){
-        // String
+    public String getComponents(int pos){
+
         Artist aux;
         String ret;
         int i = 0;
@@ -175,8 +175,8 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
             aux = iterator.next();
             if (i == pos){
-                //ret = aux.getName();
-                return aux;// ret
+                ret = aux.getName();
+                return ret;
             }
             i++;
         }
@@ -273,15 +273,15 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         rootElement.appendChild(xName);
         
         // artists elements
-        Element artists = doc.createElement("artists");
-        rootElement.appendChild(artists);
+        Element xArtists = doc.createElement("artists");
+        rootElement.appendChild(xArtists);
 
         for (int i = 0; i < components.size(); i++){
 
             // cards elements
             Element xArtist = doc.createElement("artist");
-            xArtist.appendChild(doc.createTextNode(this.getComponents(i).toXML()));//this.getComponents(i)
-            artists.appendChild(xArtist);
+            xArtist.appendChild(doc.createTextNode(this.getComponents(i)));
+            xArtists.appendChild(xArtist);
             
             // set attribute to artist element
             Attr attr = doc.createAttribute("artist");
