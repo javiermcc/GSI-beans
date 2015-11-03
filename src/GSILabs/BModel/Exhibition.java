@@ -7,19 +7,36 @@ package GSILabs.BModel;
 
 import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author elementary
  */
 public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
-    private String title;               // the title of the exhibition
-    private String organizer;           // the organizer of the exhibition
-    private Date[] timetable;           // the Dates that the exhibition will open on chronologic order
-    private Location location;          // the location of the exhibition
-    private Performer protagonist;    // the protagonist of the exhibition
-    private String[] webs;              // the webs of the exhibition
+    
+    private final String title;               // the title of the exhibition
+    private final String organizer;           // the organizer of the exhibition
+    private final Date[] timetable;           // the Dates that the exhibition will open on chronologic order
+    private final Location location;          // the location of the exhibition
+    private final Performer protagonist;    // the protagonist of the exhibition
+    private final String[] webs;              // the webs of the exhibition
     
     /**
      * Constructor of exhibition
@@ -188,16 +205,114 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
 
     @Override
     public String toXML() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements (client)
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("exhibition");
+        doc.appendChild(rootElement);
+
+
+        // title elements
+        Element xTitle = doc.createElement("title");
+        xTitle.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xTitle);
+        
+        // organizer elements
+        Element xOrganizer = doc.createElement("organizer");
+        xOrganizer.appendChild(doc.createTextNode(this.getOrganizer()));
+        rootElement.appendChild(xOrganizer);
+
+        // location elements
+        Element xLocation = doc.createElement("location");
+        xLocation.appendChild(doc.createTextNode(this.getLocation().toString()));
+        rootElement.appendChild(xLocation);
+        
+        // protagonist elements
+        Element xProtagonist = doc.createElement("protagonist");
+        xProtagonist.appendChild(doc.createTextNode(this.getPerformers().toString()));
+        rootElement.appendChild(xProtagonist);
+        
+        // timetable elements
+        Element xTimetable = doc.createElement("timetable");
+        rootElement.appendChild(xTimetable);
+
+        for (int i = 0; i < timetable.length; i++){
+
+            // cards elements
+            Element xHour = doc.createElement("hour");
+            xHour.appendChild(doc.createTextNode(this.getStartDate().toString()));
+            xTimetable.appendChild(xHour);
+            
+            // set attribute to card element
+            Attr attr = doc.createAttribute("hour");
+            attr.setValue("open");
+            xHour.setAttributeNode(attr);
+
+        }
+        
+        if (this.getWebs() != null){
+            // web elements
+            Element xWeb = doc.createElement("web");
+            xWeb.appendChild(doc.createTextNode(this.getWebs().toString()));
+            rootElement.appendChild(xWeb);
+        }
+        // write the content into string
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        StringWriter outWriter = new StringWriter();
+        StreamResult result = new StreamResult( outWriter );
+
+        transformer.transform(source, result);
+        StringBuffer sb = outWriter.getBuffer(); 
+        String finalstring = sb.toString();
+       
+        return finalstring;
+        
+
+        } catch (ParserConfigurationException pce) {
+              pce.printStackTrace();
+        } catch (TransformerException tfe) {
+              tfe.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public boolean saveToXML(File f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String toXML = this.toXML();
+
+        try {
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean saveToXML(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String toXML = this.toXML();
+       
+        try { 
+            File f = new File(filePath);
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }
