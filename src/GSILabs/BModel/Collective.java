@@ -165,7 +165,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         
     }
     
-    public String getComponents(int pos){
+    public Artist getComponents(int pos){
 
         Artist aux;
         String ret;
@@ -175,8 +175,8 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
             aux = iterator.next();
             if (i == pos){
-                ret = aux.getName();
-                return ret;
+                //ret = aux.getName();
+                return aux;
             }
             i++;
         }
@@ -278,15 +278,11 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
         for (int i = 0; i < components.size(); i++){
 
-            // cards elements
-            Element xArtist = doc.createElement("artist");
-            xArtist.appendChild(doc.createTextNode(this.getComponents(i)));
-            xArtists.appendChild(xArtist);
-            
-            // set attribute to artist element
-            Attr attr = doc.createAttribute("artist");
-            attr.setValue(Integer.toString(i));
-            xArtist.setAttributeNode(attr);
+            /*String s = this.getComponents(i).toXML();
+            String sr = s.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            xArtists.appendChild(doc.createTextNode(sr));*/
+
+            xArtists.appendChild(doc.createTextNode("A"+i));
 
         }
 
@@ -310,6 +306,21 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
        
+        //afdasdfas
+        for (int i = 0; i < components.size(); i++){
+
+            /*String s = this.getComponents(i).toXML();
+            String sr = s.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            xArtists.appendChild(doc.createTextNode(sr));*/
+
+            String a=this.getComponents(i).toXML();
+            String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            finalstring=finalstring.replace("A"+i,sr);
+        }
+        
+        
+        //adsfdfsadfas
+        
         return finalstring;
         
 
