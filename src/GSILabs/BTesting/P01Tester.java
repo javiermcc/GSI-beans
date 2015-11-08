@@ -253,7 +253,7 @@ public class P01Tester {
         }else{
             System.out.println("No se puede añadir un cliente menor de edad");
         }
-/*
+
         Date[] date = new Date[2];
         date[0] = new Date(2000,12,12);
         date[1] = new Date(2000,12,13);
@@ -262,7 +262,7 @@ public class P01Tester {
         webs[1] = "dwedc";
         ex = new Exhibition("o", "im", date ,loc1, col,webs);
         busSys.addNewExhibition(ex);
-*/
+
     }
     
 }
