@@ -229,7 +229,7 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
 
         // location elements
         Element xLocation = doc.createElement("location");
-        xLocation.appendChild(doc.createTextNode(this.getLocation().toString()));
+        xLocation.appendChild(doc.createTextNode("A"));
         rootElement.appendChild(xLocation);
         
         // protagonist elements
@@ -258,7 +258,10 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         if (this.getWebs() != null){
             // web elements
             Element xWeb = doc.createElement("web");
-            xWeb.appendChild(doc.createTextNode(this.getWebs().toString()));
+            String[] w = this.getWebs();
+            for (int i = 0; i < this.getWebs().length; i++){
+                xWeb.appendChild(doc.createTextNode(webs[i]));
+            }
             rootElement.appendChild(xWeb);
         }
         // write the content into string
@@ -272,6 +275,11 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         transformer.transform(source, result);
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
+        
+        String a=this.getLocation().toXML();
+        String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
+        String b = sr.replace("</location>", "");
+        finalstring=finalstring.replace("A",b);
        
         return finalstring;
         
