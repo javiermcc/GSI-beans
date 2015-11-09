@@ -234,8 +234,10 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         
         // protagonist elements
         Element xProtagonist = doc.createElement("protagonist");
-        xProtagonist.appendChild(doc.createTextNode(this.getPerformers().toString()));
+        Performer[] p = this.getPerformers();
+        xProtagonist.appendChild(doc.createTextNode("B"));
         rootElement.appendChild(xProtagonist);
+        
         
         // timetable elements
         Element xTimetable = doc.createElement("timetable");
@@ -276,10 +278,22 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
         
-        String a=this.getLocation().toXML();
+        String a = this.getLocation().toXML();
         String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
         String b = sr.replace("</location>", "");
-        finalstring=finalstring.replace("A",b);
+        finalstring = finalstring.replace("A",b);
+        if (p.length > 1){
+            // Collective
+            String ar = ((Collective)p[0]).toXML();
+            String at = ar.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            finalstring = finalstring.replace("B", at);
+        }
+        else {
+            // Artist
+            String col = ((Artist)p[0]).toXML();
+            String colt = col.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            finalstring = finalstring.replace("B", colt);
+        }
        
         return finalstring;
         
