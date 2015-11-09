@@ -7,10 +7,26 @@ package GSILabs.BModel;
 
 import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -200,17 +216,103 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
 
     @Override
     public String toXML() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements (festival)
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("festival");
+        doc.appendChild(rootElement);
+
+
+        // name elements
+        Element xName = doc.createElement("name");
+        xName.appendChild(doc.createTextNode(this.getName()));
+        rootElement.appendChild(xName);
+        
+        // startDate elements
+        Element xStartdate = doc.createElement("startDate");
+        xStartdate.appendChild(doc.createTextNode(this.getStartDate().toString()));
+        rootElement.appendChild(xStartdate);
+
+        // endDate elements
+        Element xEndDate = doc.createElement("endDate");
+        xEndDate.appendChild(doc.createTextNode(this.getEndingDate().toString()));
+        rootElement.appendChild(xEndDate);
+        
+        // concerts elements
+        Element xConcerts = doc.createElement("concerts");
+        rootElement.appendChild(xConcerts);
+        Concert[] w = this.getConcerts();
+        for (int i = 0; i < w.length; i++){
+            xConcerts.appendChild(doc.createTextNode("A"+ i));
+        }
+
+        // write the content into string
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        StringWriter outWriter = new StringWriter();
+        StreamResult result = new StreamResult( outWriter );
+
+        transformer.transform(source, result);
+        StringBuffer sb = outWriter.getBuffer(); 
+        String finalstring = sb.toString();
+            
+        
+        
+        for (int i = 0; i < w.length; i++){
+            
+            String a = w[i].toXML();
+            String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            //String b = sr.replace("</concert>", "");
+            finalstring=finalstring.replace("A"+i,sr);
+        }
+        return finalstring;
+        
+
+        } catch (ParserConfigurationException pce) {
+              pce.printStackTrace();
+        } catch (TransformerException tfe) {
+              tfe.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public boolean saveToXML(File f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String toXML = this.toXML();
+
+        try {
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean saveToXML(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String toXML = this.toXML();
+       
+        try { 
+            File f = new File(filePath);
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
     
 }

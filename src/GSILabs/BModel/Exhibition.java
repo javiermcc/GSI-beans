@@ -211,7 +211,7 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        // root elements (client)
+        // root elements (exhibition)
         Document doc = docBuilder.newDocument();
         Element rootElement = doc.createElement("exhibition");
         doc.appendChild(rootElement);
