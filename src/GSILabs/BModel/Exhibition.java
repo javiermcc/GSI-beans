@@ -259,12 +259,15 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         
         if (this.getWebs() != null){
             // web elements
-            Element xWeb = doc.createElement("web");
+            Element xWebs = doc.createElement("webs");
+            rootElement.appendChild(xWebs);
             String[] w = this.getWebs();
-            for (int i = 0; i < this.getWebs().length; i++){
-                xWeb.appendChild(doc.createTextNode(webs[i]));
+            for (int i = 0; i < w.length; i++){
+                Element xWeb = doc.createElement("web");
+                xWeb.appendChild(doc.createTextNode(w[i]));
+                xWebs.appendChild(xWeb);
             }
-            rootElement.appendChild(xWeb);
+            
         }
         // write the content into string
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
