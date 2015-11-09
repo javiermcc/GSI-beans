@@ -259,8 +259,8 @@ public class P01Tester {
         date[1] = new Date(2000,12,13);
         String[] webs = new String[2];
         webs[0] = "dwedc";
-        webs[1] = "dwedc";
-        ex = new Exhibition("o", "im", date ,loc1, col,webs);
+        webs[1] = "asdsad";
+        ex = new Exhibition("o", "im", date ,loc1, col, webs);
         busSys.addNewExhibition(ex);
 
     }
