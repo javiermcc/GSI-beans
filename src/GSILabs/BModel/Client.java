@@ -314,12 +314,6 @@ public class Client implements Comparable, XMLRepresentable{
             Element xCard = doc.createElement("card");
             xCard.appendChild(doc.createTextNode(this.searchCard(i)));
             cCards.appendChild(xCard);
-            
-            // set attribute to card element
-            Attr attr = doc.createAttribute("card");
-            attr.setValue(Integer.toString(i));
-            xCard.setAttributeNode(attr);
-
         }
         // write the content into string
         TransformerFactory transformerFactory = TransformerFactory.newInstance();

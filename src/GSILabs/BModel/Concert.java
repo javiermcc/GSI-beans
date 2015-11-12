@@ -188,15 +188,10 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         Element xName = doc.createElement("name");
         xName.appendChild(doc.createTextNode(this.getName()));
         rootElement.appendChild(xName);
-/* 
-        // performer elements
-        Element xPerformer = doc.createElement("performer");
-        xPerformer.appendChild(doc.createTextNode(this.getPerformers()));
-        rootElement.appendChild(xPerformer);
-*/
+
         // location elements
         Element xLocation = doc.createElement("location");
-        xLocation.appendChild(doc.createTextNode("A"));
+        xLocation.appendChild(doc.createTextNode("##L##"));
         rootElement.appendChild(xLocation);
         
         // date elements
@@ -219,7 +214,7 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         String a=this.getLocation().toXML();
         String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
         String b = sr.replace("</location>", "");
-        finalstring=finalstring.replace("A",b);
+        finalstring=finalstring.replace("##L##",b);
        
         return finalstring;
         

@@ -278,12 +278,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
         for (int i = 0; i < components.size(); i++){
 
-            /*String s = this.getComponents(i).toXML();
-            String sr = s.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            xArtists.appendChild(doc.createTextNode(sr));*/
-
-            xArtists.appendChild(doc.createTextNode("A"+i));
-
+            xArtists.appendChild(doc.createTextNode("##A##"+i));
         }
 
         if (this.getWeb() != null){
@@ -306,20 +301,15 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
        
-        //afdasdfas
+
         for (int i = 0; i < components.size(); i++){
 
-            /*String s = this.getComponents(i).toXML();
-            String sr = s.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            xArtists.appendChild(doc.createTextNode(sr));*/
 
             String a=this.getComponents(i).toXML();
             String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            finalstring=finalstring.replace("A"+i,sr);
+            finalstring=finalstring.replace("##A##"+i,sr);
         }
-        
-        
-        //adsfdfsadfas
+
         
         return finalstring;
         
