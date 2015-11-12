@@ -248,7 +248,7 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
         rootElement.appendChild(xConcerts);
         Concert[] w = this.getConcerts();
         for (int i = 0; i < w.length; i++){
-            xConcerts.appendChild(doc.createTextNode("A"+ i));
+            xConcerts.appendChild(doc.createTextNode("##C##"+ i));
         }
 
         // write the content into string
@@ -270,7 +270,7 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
             String a = w[i].toXML();
             String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
             //String b = sr.replace("</concert>", "");
-            finalstring=finalstring.replace("A"+i,sr);
+            finalstring=finalstring.replace("##C##"+i,sr);
         }
         return finalstring;
         
