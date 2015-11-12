@@ -229,13 +229,13 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
 
         // location elements
         Element xLocation = doc.createElement("location");
-        xLocation.appendChild(doc.createTextNode("A"));
+        xLocation.appendChild(doc.createTextNode("##L##"));
         rootElement.appendChild(xLocation);
         
         // protagonist elements
         Element xProtagonist = doc.createElement("protagonist");
         Performer[] p = this.getPerformers();
-        xProtagonist.appendChild(doc.createTextNode("B"));
+        xProtagonist.appendChild(doc.createTextNode("##P##"));
         rootElement.appendChild(xProtagonist);
         
         
@@ -284,18 +284,18 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         String a = this.getLocation().toXML();
         String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
         String b = sr.replace("</location>", "");
-        finalstring = finalstring.replace("A",b);
+        finalstring = finalstring.replace("##L##",b);
         if (p.length > 1){
             // Collective
             String col = ((Collective)p[0]).toXML();
             String colt = col.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            finalstring = finalstring.replace("B", colt);
+            finalstring = finalstring.replace("##P##", colt);
         }
         else {
             // Artist
             String ar = ((Artist)p[0]).toXML();
             String at = ar.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            finalstring = finalstring.replace("B", at);
+            finalstring = finalstring.replace("##P##", at);
         }
        
         return finalstring;
