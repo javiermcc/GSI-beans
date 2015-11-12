@@ -268,8 +268,7 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
         for (int i = 0; i < w.length; i++){
             
             String a = w[i].toXML();
-            String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
-            //String b = sr.replace("</concert>", "");
+            String sr = a.replaceFirst("<?.*?>", "");
             finalstring=finalstring.replace("##C##"+i,sr);
         }
         return finalstring;

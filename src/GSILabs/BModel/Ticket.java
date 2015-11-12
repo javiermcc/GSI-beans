@@ -301,9 +301,10 @@ public class Ticket implements Comparable, XMLRepresentable{
         String finalstring = sb.toString();
         
         String c = this.getAssociated().toXML();
-        String c2 = c.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><client>", "");
-        String c3 = c2.replace("</client>", "");
-        finalstring = finalstring.replace("##A##",c3);
+        String c2 = c.replaceFirst("<?.*?>", "");
+        String c3 = c2.replace("<client>", "");
+        String c4 = c3.replace("</client>", "");
+        finalstring = finalstring.replace("##C##",c4);
 
 
         Event e = this.getEvent();
@@ -320,7 +321,7 @@ public class Ticket implements Comparable, XMLRepresentable{
             Festival e2 = (Festival)e;
             e3 = e2.toXML();
         }
-        String e4 = e3.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+        String e4 = e3.replaceFirst("<?.*?>", "");
         finalstring = finalstring.replace("##E##", e4);
         
        

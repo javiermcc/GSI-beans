@@ -138,15 +138,17 @@ public class Sale implements Comparable, XMLRepresentable{
         String finalstring = sb.toString();
         
         String c = this.getClient().toXML();
-        String c2 = c.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><client>", "");
-        String c3 = c2.replace("</client>", "");
-        finalstring = finalstring.replace("##C##",c3);
+        String c2 = c.replaceFirst("<?.*?>", "");
+        String c3 = c2.replace("<client>", "");
+        String c4 = c3.replace("</client>", "");
+        finalstring = finalstring.replace("##C##",c4);
 
 
         String t = this.getTicket().toXML();
-        String t2 = t.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ticket>", "");
-        String t3 = t2.replace("</ticket>", "");
-        finalstring = finalstring.replace("##T##", t3);
+        String t2 = t.replaceFirst("<?.*?>", "");
+        String t3 = t2.replace("<ticket>", "");
+        String t4 = t3.replace("</ticket>", "");
+        finalstring = finalstring.replace("##T##", t4);
 
         return finalstring;
         

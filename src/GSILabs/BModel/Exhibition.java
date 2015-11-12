@@ -281,20 +281,22 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
         
-        String a = this.getLocation().toXML();
-        String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
-        String b = sr.replace("</location>", "");
-        finalstring = finalstring.replace("##L##",b);
+        String l = this.getLocation().toXML();
+        String l2 = l.replaceFirst("<?.*?>", "");
+        String l3 = l2.replace("<location>", "");
+        String l4 = l3.replace("</location>", "");
+        finalstring = finalstring.replace("##L##", l4);
+        
         if (p.length > 1){
             // Collective
             String col = ((Collective)p[0]).toXML();
-            String colt = col.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            String colt = col.replaceFirst("<?.*?>", "");
             finalstring = finalstring.replace("##P##", colt);
         }
         else {
             // Artist
             String ar = ((Artist)p[0]).toXML();
-            String at = ar.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            String at = ar.replaceFirst("<?.*?>", "");
             finalstring = finalstring.replace("##P##", at);
         }
        

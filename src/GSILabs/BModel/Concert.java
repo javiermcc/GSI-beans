@@ -211,10 +211,11 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
         
-        String a=this.getLocation().toXML();
-        String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>", "");
-        String b = sr.replace("</location>", "");
-        finalstring=finalstring.replace("##L##",b);
+        String l = this.getLocation().toXML();
+        String l2 = l.replaceFirst("<?.*?>", "");
+        String l3 = l2.replace("<location>", "");
+        String l4 = l3.replace("</location>", "");
+        finalstring = finalstring.replace("##L##", l4);
        
         return finalstring;
         

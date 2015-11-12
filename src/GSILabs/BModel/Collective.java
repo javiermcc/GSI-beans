@@ -306,7 +306,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
 
             String a=this.getComponents(i).toXML();
-            String sr = a.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+            String sr = a.replaceFirst("<?.*?>", "");
             finalstring=finalstring.replace("##A##"+i,sr);
         }
 
