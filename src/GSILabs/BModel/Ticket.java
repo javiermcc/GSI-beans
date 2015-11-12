@@ -284,7 +284,7 @@ public class Ticket implements Comparable, XMLRepresentable{
 
         // used elements
         Element xUsed = doc.createElement("used");
-        xUsed.appendChild(doc.createTextNode("chorrada"));
+        xUsed.appendChild(doc.createTextNode(Boolean.toString(this.getUsed())));
         rootElement.appendChild(xUsed);
 
         
@@ -304,7 +304,7 @@ public class Ticket implements Comparable, XMLRepresentable{
         String c2 = c.replaceFirst("<?.*?>", "");
         String c3 = c2.replace("<client>", "");
         String c4 = c3.replace("</client>", "");
-        finalstring = finalstring.replace("##C##",c4);
+        finalstring = finalstring.replace("##A##",c4);
 
 
         Event e = this.getEvent();
