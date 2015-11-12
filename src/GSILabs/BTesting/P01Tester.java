@@ -143,21 +143,24 @@ public class P01Tester {
          */
         System.out.println("S6 calculo del gasto en entradas de clientes");
         Float price = 20f;
-        tick = new Ticket(1,con2,cli);
+        int[] iden = new int[2];
+        iden[0] = 123;
+        iden[1] = 456;
+        tick = new Ticket(1,con2,iden,cli);
         if (busSys.addNewTicket(tick)){
             System.out.println("Se ha añadido ticket");
         }
         else{
             System.out.println("No se ha añadido el ticket");
         }
-        Ticket tick2 = new Ticket(10,con2,cli);
+        Ticket tick2 = new Ticket(10,con2,iden,cli);
         if (busSys.addNewTicket(tick2)){
             System.out.println("Se ha añadido ticket");
         }
         else{
             System.out.println("No se ha añadido el ticket");
         }
-        Ticket tick3 = new Ticket(102,con2,cli);
+        Ticket tick3 = new Ticket(102,con2,iden,cli);
         if (busSys.addNewTicket(tick3)){
             System.out.println("Se ha añadido ticket");
         }
