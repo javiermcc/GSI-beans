@@ -17,21 +17,37 @@ import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
+import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import org.jopendocument.dom.spreadsheet.TableGroup;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author linux1
  */
-public class BusinessSystem implements TicketOffice{
+public class BusinessSystem implements TicketOffice, XMLRepresentable{
     
     public TreeSet<Concert> concerts;
     public TreeSet<Exhibition> exhibitions;
@@ -1026,4 +1042,160 @@ public class BusinessSystem implements TicketOffice{
         
     }
     
+    @Override
+    public String toXML() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements (BusinessSystem)
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("BusinessSystem");
+        doc.appendChild(rootElement);
+        
+        // artists elements
+        Element xArtists = doc.createElement("artists");
+        rootElement.appendChild(xArtists);
+
+        for (int i = 0; i < artists.size(); i++){
+
+            xArtists.appendChild(doc.createTextNode("##A"+i+"##"));
+        }
+ 
+        // collective elements
+        Element xCollectives = doc.createElement("collectives");
+        rootElement.appendChild(xCollectives);
+
+        for (int i = 0; i < collectives.size(); i++){
+
+            xCollectives.appendChild(doc.createTextNode("##COL"+i+"##"));
+        }
+        
+        // location elements
+        Element xLocations = doc.createElement("locations");
+        rootElement.appendChild(xLocations);
+
+        for (int i = 0; i < locations.size(); i++){
+
+            xLocations.appendChild(doc.createTextNode("##L"+i+"##"));
+        }
+        
+        // client elements
+        Element xClients = doc.createElement("clients");
+        rootElement.appendChild(xClients);
+
+        for (int i = 0; i < clients.size(); i++){
+
+            xClients.appendChild(doc.createTextNode("##CLI"+i+"##"));
+        }
+        
+        
+        
+        // write the content into string
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        StringWriter outWriter = new StringWriter();
+        StreamResult result = new StreamResult( outWriter );
+
+        transformer.transform(source, result);
+        StringBuffer sb = outWriter.getBuffer(); 
+        String finalstring = sb.toString();
+        
+        
+        int a = 0;
+        Artist auxA;
+        Iterator<Artist> iA = artists.iterator();
+        while(iA.hasNext()){
+
+            auxA = iA.next();
+            String art = auxA.toXML();
+            String art2 = art.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##A"+a+"##", art2);
+            a++;
+        }
+        
+        int col = 0;
+        Collective auxCol;
+        Iterator<Collective> iCol = collectives.iterator();
+        while(iCol.hasNext()){
+
+            auxCol = iCol.next();
+            String col1 = auxCol.toXML();
+            String col2 = col1.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##COL"+col+"##", col2);
+            col++;
+        }
+        
+        int l = 0;
+        Location auxL;
+        Iterator<Location> iL = locations.iterator();
+        while(iL.hasNext()){
+
+            auxL = iL.next();
+            String loc2 = auxL.toXML();
+            String loc3 = loc2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##L"+l+"##", loc3);
+            l++;
+        }
+        
+        int cli = 0;
+        Client auxCli;
+        Iterator<Client> iCli = clients.iterator();
+        while(iCli.hasNext()){
+
+            auxCli = iCli.next();
+            String cli2 = auxCli.toXML();
+            String cli3 = cli2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##CLI"+cli+"##", cli3);
+            cli++;
+        }
+        
+        
+        
+        return finalstring;
+        
+
+        } catch (ParserConfigurationException pce) {
+              pce.printStackTrace();
+        } catch (TransformerException tfe) {
+              tfe.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String toXML = this.toXML();
+
+        try {
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String toXML = this.toXML();
+       
+        try { 
+            File f = new File(filePath);
+            PrintWriter out = new PrintWriter(f);
+            out.write(toXML);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 }

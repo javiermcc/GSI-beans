@@ -77,6 +77,7 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
     public Collective(String n, Artist a1, Artist a2, String d,String w){
         
         name=n;
+        components=new TreeSet<>();
         components.add(a1);
         components.add(a2);
         description=d;
