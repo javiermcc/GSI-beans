@@ -61,13 +61,13 @@ public class Ticket implements Comparable, XMLRepresentable{
      * @param e 
      * @param value 
      */
-    public Ticket (int id, Event e,boolean value){
+    public Ticket (int id, Event e,boolean used){
         
         this.id = id;
         this.event = e;
         this.identifiers = null;
         this.associated = null;
-        this.used = value;
+        this.used = used;
     }
     
     /**
@@ -90,15 +90,15 @@ public class Ticket implements Comparable, XMLRepresentable{
      * @param id
      * @param e
      * @param a 
-     * @param value 
+     * @param used 
      */
-    public Ticket (int id, Event e, Client a,boolean value){
+    public Ticket (int id, Event e, Client a,boolean used){
         
         this.id = id;
         this.event = e;
         this.identifiers = null;
         this.associated = a;
-        this.used = value;
+        this.used = used;
     }
     
     /**
@@ -115,6 +115,23 @@ public class Ticket implements Comparable, XMLRepresentable{
         this.identifiers = dnis;
         this.associated = a;
         this.used = false;
+    }
+    
+    /**
+     * It creates a Ticket that only allows one client to get into an event
+     * @param id
+     * @param e The event the ticket belongs to
+     * @param dnis The whole set of clients that are associated to a ticket
+     * @param a The client the ticket is associated with
+     * @param used
+     */
+    public Ticket (int id, Event e,int[] dnis, Client a, boolean used){
+        
+        this.id = id;
+        this.event = e;
+        this.identifiers = dnis;
+        this.associated = a;
+        this.used = used;
     }
     
     /**

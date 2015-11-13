@@ -1091,7 +1091,50 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
             xClients.appendChild(doc.createTextNode("##CLI"+i+"##"));
         }
         
+        // concerts elements
+        Element xConcerts = doc.createElement("concerts");
+        rootElement.appendChild(xConcerts);
+
+        for (int i = 0; i < concerts.size(); i++){
+
+            xConcerts.appendChild(doc.createTextNode("##CON"+i+"##"));
+        }
         
+        // exhibitions elements
+        Element xExhibitions = doc.createElement("exhibitions");
+        rootElement.appendChild(xExhibitions);
+
+        for (int i = 0; i < exhibitions.size(); i++){
+
+            xExhibitions.appendChild(doc.createTextNode("##EX"+i+"##"));
+        }
+        
+        // festivals elements
+        Element xFestivals = doc.createElement("festivals");
+        rootElement.appendChild(xFestivals);
+
+        for (int i = 0; i < festivals.size(); i++){
+
+            xFestivals.appendChild(doc.createTextNode("##F"+i+"##"));
+        }
+        
+        // tickets elements
+        Element xTickets = doc.createElement("tickets");
+        rootElement.appendChild(xTickets);
+
+        for (int i = 0; i < tickets.size(); i++){
+
+            xTickets.appendChild(doc.createTextNode("##T"+i+"##"));
+        }
+        
+        // sales elements
+        Element xSales = doc.createElement("sales");
+        rootElement.appendChild(xSales);
+
+        for (int i = 0; i < sales.size(); i++){
+
+            xSales.appendChild(doc.createTextNode("##S"+i+"##"));
+        }
         
         // write the content into string
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -1154,7 +1197,65 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
             cli++;
         }
         
+        int con = 0;
+        Concert auxCon;
+        Iterator<Concert> iCon = concerts.iterator();
+        while(iCon.hasNext()){
+
+            auxCon = iCon.next();
+            String con2 = auxCon.toXML();
+            String con3 = con2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##CON"+con+"##", con3);
+            con++;
+        }
         
+        int ex = 0;
+        Exhibition auxEx;
+        Iterator<Exhibition> iEx = exhibitions.iterator();
+        while(iEx.hasNext()){
+
+            auxEx = iEx.next();
+            String ex2 = auxEx.toXML();
+            String ex3 = ex2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##EX"+ex+"##", ex3);
+            ex++;
+        }
+        
+        int f = 0;
+        Festival auxF;
+        Iterator<Festival> iF = festivals.iterator();
+        while(iF.hasNext()){
+
+            auxF = iF.next();
+            String f2 = auxF.toXML();
+            String f3 = f2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##F"+f+"##", f3);
+            f++;
+        }
+        
+        int t = 0;
+        Ticket auxT;
+        Iterator<Ticket> iT = tickets.iterator();
+        while(iT.hasNext()){
+
+            auxT = iT.next();
+            String t2 = auxT.toXML();
+            String t3 = t2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##T"+t+"##", t3);
+            t++;
+        }
+        
+        int s = 0;
+        Sale auxS;
+        Iterator<Sale> iS = sales.iterator();
+        while(iS.hasNext()){
+
+            auxS = iS.next();
+            String s2 = auxS.toXML();
+            String s3 = s2.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##S"+s+"##", s3);
+            s++;
+        }
         
         return finalstring;
         
