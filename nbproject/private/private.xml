@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/testxml/Testxml.java</file>
             <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BTesting/P01Tester.java</file>
             <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BModel/Exhibition.java</file>
             <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BSystem/BusinessSystem.java</file>
+            <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BTesting/XMLTester.java</file>
             <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BModel/Collective.java</file>
             <file>file:/home/elementary/NetBeansProjects/GSI-beans/src/GSILabs/BModel/Concert.java</file>
         </group>

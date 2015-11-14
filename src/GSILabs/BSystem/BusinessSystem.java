@@ -250,30 +250,36 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
         
         if (e != null)
         {
-            Festival aux1;
-            Iterator<Festival> Fiterator= festivals.iterator();
-            while(Fiterator.hasNext()){
-                aux1=Fiterator.next();
-                if(((Festival)e).equals(aux1)){
-                    return true;
+            if (e instanceof Festival){
+                Festival aux1;
+                Iterator<Festival> Fiterator= festivals.iterator();
+                while(Fiterator.hasNext()){
+                    aux1=Fiterator.next();
+                    if(((Festival)e).equals(aux1)){
+                        return true;
+                    }
+                }
+            }     
+            
+            if (e instanceof Concert){
+                Concert aux2;
+                Iterator<Concert> Citerator= concerts.iterator();
+                while(Citerator.hasNext()){
+                    aux2=Citerator.next();
+                    if(((Concert)e).equals(aux2)){
+                        return true;
+                    }
                 }
             }
             
-            Concert aux2;
-            Iterator<Concert> Citerator= concerts.iterator();
-            while(Citerator.hasNext()){
-                aux2=Citerator.next();
-                if(((Concert)e).equals(aux2)){
-                    return true;
-                }
-            }
-            
-            Exhibition aux3;
-            Iterator<Exhibition> Eiterator= exhibitions.iterator();
-            while(Eiterator.hasNext()){
-                aux3=Eiterator.next();
-                if(((Exhibition)e).equals(aux3)){
-                    return true;
+            if (e instanceof Exhibition){
+                Exhibition aux3;
+                Iterator<Exhibition> Eiterator= exhibitions.iterator();
+                while(Eiterator.hasNext()){
+                    aux3=Eiterator.next();
+                    if(((Exhibition)e).equals(aux3)){
+                        return true;
+                    }
                 }
             }
             

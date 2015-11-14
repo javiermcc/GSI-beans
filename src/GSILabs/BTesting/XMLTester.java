@@ -117,7 +117,7 @@ public class XMLTester {
         //Sale s1 = new Sale(cli1, t1, precio, );
         //Sale s2 = new Sale(cli2, t2, precio, );
         
-        bus.addSale(t1, cli1, precio, null);
+        bus.addSale(t1, cli1, precio, cli1.searchCard(0));
         bus.addSale(t2, cli1, precio, null);
         bus.addSale(t3, cli1, precio, null);
         bus.addSale(t4, cli2, precio, null);
