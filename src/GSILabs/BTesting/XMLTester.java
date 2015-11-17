@@ -17,6 +17,7 @@ import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
 import GSILabs.BSystem.BusinessSystem;
+import GSILabs.persistence.ParseElement;
 import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
@@ -130,7 +131,20 @@ public class XMLTester {
         System.out.println(bus.sales.size());
         System.out.println(bus.tickets.contains(t2));
         
-        File f = new File("/home/linux1/bus.xml");
+        
+        
+        
+        File fi = new File("/home/elementary/artist.xml");
+        String fi2 = "/home/elementary/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
+        ParseElement x = new ParseElement();
+
+        Artist z = x.parseArtist(fi);
+        bus.addArtist(z);
+        
+        
+        
+        
+        File f = new File("/home/elementary/bus.xml");
         bus.saveToXML(f);
     }
 }
