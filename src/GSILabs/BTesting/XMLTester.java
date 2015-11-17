@@ -19,6 +19,7 @@ import GSILabs.BModel.Ticket;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.util.Date;
+import java.util.Iterator;
 
 
 /**
@@ -72,7 +73,7 @@ public class XMLTester {
         Concert con2 = new Concert(l2, col1, "Concierto 2", new Date(2000-1900, 2, 2));
         
         bus.addNewConcert(con1);
-        bus.addNewConcert(con2);
+        bus.addNewConcert(con2);//no se ade por l2
         
         Date[] date = new Date[2];
         date[0] = new Date(2000-1900,11,12);
@@ -107,7 +108,7 @@ public class XMLTester {
         Ticket t6 = new Ticket(6, ex2, compas, cli2, true);
         
         bus.addNewTicket(t1);
-        bus.addNewTicket(t2);
+        bus.addNewTicket(t2);// este ticket no se añade porque pone que con2 no existe
         bus.addNewTicket(t3);
         bus.addNewTicket(t4);
         bus.addNewTicket(t5);
@@ -118,14 +119,18 @@ public class XMLTester {
         //Sale s2 = new Sale(cli2, t2, precio, );
         
         bus.addSale(t1, cli1, precio, cli1.searchCard(0));
-        bus.addSale(t2, cli1, precio, null);
-        bus.addSale(t3, cli1, precio, null);
-        bus.addSale(t4, cli2, precio, null);
-        bus.addSale(t5, cli2, precio, null);
-        bus.addSale(t6, cli2, precio, null);
+        bus.addSale(t2, cli1, precio, cli1.searchCard(0));
+        bus.addSale(t3, cli1, precio, cli1.searchCard(0));
+        bus.addSale(t4, cli2, precio, cli2.searchCard(0));
+        bus.addSale(t5, cli2, precio, null);//obviamente no se añade al tener la tarjeta nula
+        bus.addSale(t6, cli2, precio, cli2.searchCard(0));
         
+       
         
-        File f = new File("/home/elementary/bus.xml");
+        System.out.println(bus.sales.size());
+        System.out.println(bus.tickets.contains(t2));
+        
+        File f = new File("/home/linux1/bus.xml");
         bus.saveToXML(f);
     }
 }

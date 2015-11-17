@@ -686,10 +686,16 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
        
         if ((t != null) && (t.getEvent() != null)){ //&& (t.getIDs() != null) && (t.getAssociated() != null)){
             if (existsEvent(t.getEvent())){
-                if (clients.contains(t.getAssociated())){
+                
+                if(t.getAssociated()==null){// el ticket no tiene cliente asociado
+                    tickets.add(t);
+                    return tickets.contains(t);
+                }
+                else{if (clients.contains(t.getAssociated())){
                     
                     tickets.add(t);
                     return tickets.contains(t);
+                    }
                 }
             }
         }
@@ -806,7 +812,9 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
             while(iterator.hasNext()){
                 
                 loc=iterator.next();
-                return loc.equals(l);
+                if( loc.equals(l)){
+                    return true;
+                }
             }
         }
         

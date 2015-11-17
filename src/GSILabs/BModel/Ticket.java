@@ -292,11 +292,13 @@ public class Ticket implements Comparable, XMLRepresentable{
         // identifiers elements
         Element xIdentifiers = doc.createElement("identifiers");
         rootElement.appendChild(xIdentifiers);
-        int[] i = this.getIDs();
-        for (int j = 0; j < i.length; j++){
-            Element xIdentifier = doc.createElement("identifier");
-            xIdentifier.appendChild(doc.createTextNode(Integer.toString(i[j])));
-            xIdentifiers.appendChild(xIdentifier);
+        if(this.identifiers!=null){
+            int[] i = this.identifiers;
+            for (int j = 0; j < i.length; j++){
+                Element xIdentifier = doc.createElement("identifier");
+                xIdentifier.appendChild(doc.createTextNode(Integer.toString(i[j])));
+                xIdentifiers.appendChild(xIdentifier);
+            }
         }
 
         // used elements
@@ -317,12 +319,15 @@ public class Ticket implements Comparable, XMLRepresentable{
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
         
-        String c = this.getAssociated().toXML();
-        String c2 = c.replaceFirst("<?.*?>", "");
-        String c3 = c2.replace("<client>", "");
-        String c4 = c3.replace("</client>", "");
-        finalstring = finalstring.replace("##A##",c4);
-
+        if(this.associated!=null){
+            String c = this.associated.toXML();
+            String c2 = c.replaceFirst("<?.*?>", "");
+            String c3 = c2.replace("<client>", "");
+            String c4 = c3.replace("</client>", "");
+            finalstring = finalstring.replace("##A##",c4);
+        }else{
+            finalstring = finalstring.replace("##A##","");
+        }
 
         Event e = this.getEvent();
         String e3 = null;
