@@ -136,12 +136,12 @@ public static void main(String argv[]) {
         
        
         
-        StreamResult result = new StreamResult(new File("/home/linux1/test.xml"));
+        //StreamResult result = new StreamResult(new File("/home/linux1/test.xml"));
 
         
         StringWriter test=new StringWriter();
         
-        //StreamResult result = new StreamResult(test);
+        StreamResult result = new StreamResult(test);
         // Output to console for testing
         //StreamResult result = new StreamResult(System.out);
 
@@ -150,7 +150,7 @@ public static void main(String argv[]) {
         
         transformer.transform(source, result);
         
-        //System.out.println(test.toString());
+        System.out.println(test.toString());
         //String r=test.toString();
        
 

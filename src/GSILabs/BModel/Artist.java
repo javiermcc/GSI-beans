@@ -134,10 +134,10 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
     public String toString(){
         
         if (web.isEmpty())
-            return "Name of the artist: "+name+"\nDescription of the artist"
+            return "Name of the artist: "+name+"\nDescription of the artist: "
                 +description;
         else
-            return "Name of the artist: "+name+"\nDescription of the artist"
+            return "Name of the artist: "+name+"\nDescription of the artist: "
                 +description+"\nWeb of the artist: "+web;
     
     }
@@ -203,7 +203,7 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
 
         
         Element xWeb = doc.createElement("web");
-            rootElement.appendChild(xWeb);
+        rootElement.appendChild(xWeb);
         if (this.getWeb() != null){
             // web elements   
             xWeb.appendChild(doc.createTextNode(this.getWeb()));

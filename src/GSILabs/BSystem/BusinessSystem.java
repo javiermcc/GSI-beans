@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -556,19 +558,20 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
      * @return boolean
      */
     private static boolean ageMajority(ModelDate birthdate){
-        Date today = new Date();
+        Calendar c1 = new GregorianCalendar();
+        
         boolean resul=false;
-        if ((today.getYear()-birthdate.getYear())>18){
+        if ((c1.get(Calendar.YEAR)-birthdate.getYear())>18){
             resul=true;
-        }else if ((today.getYear()-birthdate.getYear())==18){
-            if (today.getMonth()<birthdate.getMonth()){
+        }else if ((c1.get(Calendar.YEAR)-birthdate.getYear())==18){
+            if (c1.get(Calendar.MONTH)<birthdate.getMonth()){
                resul=false;
-            }else if (today.getMonth()==birthdate.getMonth()){
-                resul=(today.getDate()>=birthdate.getDay());
-            }else if(today.getMonth()>birthdate.getMonth()){
+            }else if (c1.get(Calendar.MONTH)==birthdate.getMonth()){
+                resul=(c1.get(Calendar.DATE)>=birthdate.getDay());
+            }else if(c1.get(Calendar.MONTH)>birthdate.getMonth()){
                 resul=true;
             }
-        }else if ((today.getYear()-birthdate.getYear())<18){
+        }else if ((c1.get(Calendar.YEAR)-birthdate.getYear())<18){
             resul=false;
         }
         return resul;

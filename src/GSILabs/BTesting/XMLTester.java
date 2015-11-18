@@ -63,8 +63,8 @@ public class XMLTester {
         bus.addLocation(l2);
         
         
-        Client cli1 = new Client(1, "Nombre 1", "Apellidos 1", new ModelDate(2,9,1994), "1");
-        Client cli2 = new Client(2, "Nombre 2", "Apellidos 2", new ModelDate(2,9,1994), "2");
+        Client cli1 = new Client(1, "Nombre 1", "Apellidos 1", new ModelDate(1998,9,1), "1");
+        Client cli2 = new Client(2, "Nombre 2", "Apellidos 2", new ModelDate(1223,9,2), "2");
         
         bus.addClient(cli1);
         bus.addClient(cli2);
@@ -132,21 +132,20 @@ public class XMLTester {
         File ff = new File("/home/linux1/busf.xml");
         bus.saveToXML(ff);
         
-       // Artist art5 = new Artist("Artista5", "Descripcion 4");
-        
-        
-        File fi = new File("/home/linux1/artist.xml");
-        //art5.saveToXML(fi);
-        
+
+        cli1.addCard("32");
+        cli1.addCard("34");
+        File fi = new File("/home/linux1/collective.xml");
+        //col1.saveToXML(fi);
+        String asdf = col1.toXML();
+
         //String fi2 = "/home/linux1/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
         //ParseElement x = new ParseElement();// los metodos tienen que ser estaticos , nohay q instanciar la clase
 
-        
-        Artist z = ParseElement.parseArtist(fi);
-        
-        System.out.println(z);
-        
-        bus.addArtist(z);
+        Collective cola=ParseElement.parseCollective(fi);
+        System.out.println(cola);
+
+        /*bus.addArtist(z);*/
         
         
         

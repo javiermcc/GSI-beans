@@ -301,7 +301,7 @@ public class Client implements Comparable, XMLRepresentable{
         
         // birthdate elements
         Element xBirthdate = doc.createElement("birthdate");
-        xBirthdate.appendChild(doc.createTextNode(this.getBirthdate().toString()));
+        xBirthdate.appendChild(doc.createTextNode("##B##"));
         rootElement.appendChild(xBirthdate);
         
         // cards elements
@@ -326,6 +326,10 @@ public class Client implements Comparable, XMLRepresentable{
         transformer.transform(source, result);
         StringBuffer sb = outWriter.getBuffer(); 
         String finalstring = sb.toString();
+        
+        String a=this.getBirthdate().toXML();
+        String sr = a.replaceFirst("<?.*?>", "");
+        finalstring=finalstring.replace("##B##",sr);
        
         return finalstring;
         
