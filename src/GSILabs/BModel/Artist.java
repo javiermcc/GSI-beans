@@ -70,7 +70,7 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
         
     }
     
-    /**
+        /**
      * Return the name of the performer. It must be unique, meaning that different Performer
      * cannot have a repeated name. This holds regardless of the type (class) of performer
      * they are
@@ -201,11 +201,12 @@ public class Artist implements Performer,Comparable, XMLRepresentable{
         xDescription.appendChild(doc.createTextNode(this.getWorkDescription()));
         rootElement.appendChild(xDescription);
 
-        if (this.getWeb() != null){
-            // web elements
-            Element xWeb = doc.createElement("web");
-            xWeb.appendChild(doc.createTextNode(this.getWeb()));
+        
+        Element xWeb = doc.createElement("web");
             rootElement.appendChild(xWeb);
+        if (this.getWeb() != null){
+            // web elements   
+            xWeb.appendChild(doc.createTextNode(this.getWeb()));
         }
 
         

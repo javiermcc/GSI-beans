@@ -126,25 +126,32 @@ public class XMLTester {
         bus.addSale(t5, cli2, precio, null);//obviamente no se añade al tener la tarjeta nula
         bus.addSale(t6, cli2, precio, cli2.searchCard(0));
         
-       
-        
-        System.out.println(bus.sales.size());
-        System.out.println(bus.tickets.contains(t2));
-        
-        
-        
-        
-        File fi = new File("/home/elementary/artist.xml");
-        String fi2 = "/home/elementary/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
-        ParseElement x = new ParseElement();
 
-        Artist z = x.parseArtist(fi);
+        
+        
+        File ff = new File("/home/linux1/busf.xml");
+        bus.saveToXML(ff);
+        
+       // Artist art5 = new Artist("Artista5", "Descripcion 4");
+        
+        
+        File fi = new File("/home/linux1/artist.xml");
+        //art5.saveToXML(fi);
+        
+        //String fi2 = "/home/linux1/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
+        //ParseElement x = new ParseElement();// los metodos tienen que ser estaticos , nohay q instanciar la clase
+
+        
+        Artist z = ParseElement.parseArtist(fi);
+        
+        System.out.println(z);
+        
         bus.addArtist(z);
         
         
         
         
-        File f = new File("/home/elementary/bus.xml");
+        File f = new File("/home/linux1/bus.xml");
         bus.saveToXML(f);
     }
 }

@@ -281,12 +281,12 @@ public class Collective implements Performer,Comparable, XMLRepresentable{
 
             xArtists.appendChild(doc.createTextNode("##A##"+i));
         }
+        Element xWeb = doc.createElement("web");
+        rootElement.appendChild(xWeb);
 
         if (this.getWeb() != null){
             // web elements
-            Element xWeb = doc.createElement("web");
             xWeb.appendChild(doc.createTextNode(this.getWeb()));
-            rootElement.appendChild(xWeb);
         }
         
         

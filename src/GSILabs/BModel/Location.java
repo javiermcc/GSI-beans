@@ -284,11 +284,11 @@ public class Location implements Comparable, XMLRepresentable{
         rootElement.appendChild(xNumber);
         
         
+        Element xWeb = doc.createElement("web");
+        rootElement.appendChild(xWeb);
         if (this.getWeb() != null){
             // web elements
-            Element xWeb = doc.createElement("web");
             xWeb.appendChild(doc.createTextNode(this.getWeb()));
-            rootElement.appendChild(xWeb);
         }
         
         // write the content into string

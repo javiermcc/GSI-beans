@@ -24,7 +24,7 @@ import java.util.TreeSet;
 public class ParseElement {
 
     
-    public Artist parseArtist(String str){
+    public static Artist parseArtist(String str){
         
         Artist artist = null;
         String name = null;
@@ -60,10 +60,11 @@ public class ParseElement {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(artist);
         return artist;
     }
     
-    public Artist parseArtist(File f){
+    public static Artist parseArtist(File f){
         
         Artist artist = null;
         String name = null;
@@ -79,13 +80,13 @@ public class ParseElement {
             doc.getDocumentElement().normalize();
             	
             NodeList nList = doc.getElementsByTagName("artist");
-
+            System.out.println(nList.getLength());
+                
             for (int temp = 0; temp < nList.getLength(); temp++) {
-
                 Node nNode = nList.item(temp);
-
+                System.out.println(nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
+                    
                     Element eElement = (Element) nNode;
 
 
@@ -95,15 +96,17 @@ public class ParseElement {
                 }
             }
             artist = new Artist(name, description, web);
-        
+            System.out.println(artist);
         } catch (Exception e) {
             e.printStackTrace();
+            
         }
+        
         return artist;
     }
     
     
-    public Client parseClient(String str){
+   /* public static Client parseClient(String str){
         
         Client client = null;
         int dni;
@@ -144,9 +147,9 @@ public class ParseElement {
             e.printStackTrace();
         }
         return client;
-    }
+    }*/
     
-    public Client parseClient(File f){
+    /*public static Client parseClient(File f){
         
         Client client = null;
         int dni;
@@ -187,7 +190,7 @@ public class ParseElement {
             e.printStackTrace();
         }
         return client;
-    }
+    }*/
 }
     
     

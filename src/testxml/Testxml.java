@@ -99,6 +99,34 @@ public static void main(String argv[]) {
         salary1.appendChild(doc.createTextNode("666"));
         staff1.appendChild(salary1);
         
+         staff1 = doc.createElement("Staff");
+        rootElement.appendChild(staff1);
+
+        // set attribute to staff element
+         attr1 = doc.createAttribute("id");
+        attr1.setValue("2");
+        staff1.setAttributeNode(attr1);
+        
+        
+         firstname1 = doc.createElement("firstname");
+        firstname1.appendChild(doc.createTextNode("Diego"));
+        staff1.appendChild(firstname1);
+
+        // lastname elements
+         lastname1 = doc.createElement("lastname");
+        lastname1.appendChild(doc.createTextNode("Razquin"));
+        staff1.appendChild(lastname1);
+
+        // nickname elements
+         nickname1 = doc.createElement("nickname");
+        nickname1.appendChild(doc.createTextNode("Gallu"));
+        staff1.appendChild(nickname1);
+
+        // salary elements
+         salary1 = doc.createElement("salary");
+        salary1.appendChild(doc.createTextNode("666"));
+        staff1.appendChild(salary1);
+        
         
         
         // write the content into xml file
@@ -108,7 +136,7 @@ public static void main(String argv[]) {
         
        
         
-        StreamResult result = new StreamResult(new File("/home/elementary/test.xml"));
+        StreamResult result = new StreamResult(new File("/home/linux1/test.xml"));
 
         
         StringWriter test=new StringWriter();

@@ -19,7 +19,7 @@ public class ReadXMLFile {
 
     try {
 
-	File fXmlFile = new File("/home/linux1/NetBeansProjects/testxml/prueba.xml");
+	File fXmlFile = new File("/home/linux1/test.xml");
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	Document doc = dBuilder.parse(fXmlFile);
