@@ -37,7 +37,13 @@ public class Sale implements Comparable, XMLRepresentable{
     private float price;            // The ticket's price
     private String cCard;                   
     private Date soldDate=null;             // This value would be null if the ticket hasn't been sold
-    
+    /**
+     * 
+     * @param client
+     * @param ticket
+     * @param price
+     * @param cCard 
+     */
     public Sale (Client client, Ticket ticket, float price, String cCard){
         
         this.client = client;

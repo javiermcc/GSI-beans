@@ -129,13 +129,13 @@ public class XMLTester {
 
         
         
-        File ff = new File("/home/linux1/busf.xml");
+        File ff = new File("/home/elementary/busf.xml");
         bus.saveToXML(ff);
         
 
         cli1.addCard("32");
         cli1.addCard("34");
-        File fi = new File("/home/linux1/collective.xml");
+        File fi = new File("/home/elementary/collective.xml");
         //col1.saveToXML(fi);
         String asdf = col1.toXML();
 
