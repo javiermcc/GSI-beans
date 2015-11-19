@@ -129,20 +129,20 @@ public class XMLTester {
 
         
         
-        File ff = new File("/home/elementary/busf.xml");
+        File ff = new File("/home/linux1/busf.xml");
         bus.saveToXML(ff);
         
 
         cli1.addCard("32");
         cli1.addCard("34");
-        File fi = new File("/home/elementary/collective.xml");
-        //col1.saveToXML(fi);
-        String asdf = col1.toXML();
+        File fi = new File("/home/linux1/con.xml");
+        //con1.saveToXML(fi);
+        String asdf = con1.toXML();
 
         //String fi2 = "/home/linux1/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
         //ParseElement x = new ParseElement();// los metodos tienen que ser estaticos , nohay q instanciar la clase
 
-        Collective cola=ParseElement.parseCollective(fi);
+        Concert cola = ParseElement.parseConcert(asdf);
         System.out.println(cola);
 
         /*bus.addArtist(z);*/

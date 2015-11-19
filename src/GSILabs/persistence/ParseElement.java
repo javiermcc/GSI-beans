@@ -17,6 +17,7 @@ import GSILabs.BModel.ModelDate;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Sale;
 import GSILabs.BModel.Ticket;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -25,15 +26,11 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.TreeSet;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 /**
  *
@@ -330,12 +327,22 @@ public class ParseElement {
         TreeSet<Artist> components = new TreeSet();
         String description = null;
         String web = null;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
+            
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(f);
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
+            Document doc = dBuilder.parse(stream);
 
             doc.getDocumentElement().normalize();
             	
@@ -398,7 +405,11 @@ public class ParseElement {
         Performer performer;
         String[] sPerformer = null;
         String name = null;
+        int year = 0;
+        int month = 0;
+        int day = 0;
         Date date;
+        String slocati=null;
         
         try {
             
@@ -420,21 +431,17 @@ public class ParseElement {
 
                     Element eElement = (Element) nNode;
 
-                    Node locationNode = eElement.getElementsByTagName("location").item(0);
+                    //Node locationNode = eElement.getElementsByTagName("location").item(0);
                     String[] test = str.split("</?location>");
-                    String[] test2 = test[1].split("</?location>");
-                    Element lElement = (Element) locationNode;
-                    NodeList locationList = lElement.getElementsByTagName("location");
-                    sLocation = new String[locationList.getLength()];
+
                     int idx = 0;
                     String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>";
                     String aux2 = "</location>";
                     
-                    for (int t = 1; t <= test2.length; t=t+2){
-                        sLocation[idx] = aux.concat(test2[t]);
-                        sLocation[idx] = sLocation[idx].concat(aux2);
-                        idx++;
-                    }
+                    System.out.println(test[1]);
+                    slocati= aux.concat(test[1]);
+                    slocati = slocati.concat(aux2);
+                    
                     
                     Node performerNode = eElement.getElementsByTagName("performer").item(0);
                     String[] test3 = str.split("</?performer>");
@@ -453,16 +460,23 @@ public class ParseElement {
                     }
                     
                     name = eElement.getElementsByTagName("name").item(0).getTextContent();
-                    date = eElement.getElementsByTagName("date").item(0).toString(); 
+
+                    year = Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent());
+                    month = Integer.parseInt(eElement.getElementsByTagName("month").item(0).getTextContent());
+                    day = Integer.parseInt(eElement.getElementsByTagName("day").item(0).getTextContent());
+                    
+                    
                 }
+                
             }
             
-            String slocati= sLocation[0];
+            
             location = ParseElement.parseLocation(slocati);
             
             String sPerfo = sPerformer[0];
             performer = ParseElement.parseArtist(sPerfo);
 
+            date = new Date(year-1900, month-1, day);
             
             concert = new Concert(location, performer, name, date);
         
@@ -481,12 +495,21 @@ public class ParseElement {
         String[] sPerformer = null;
         String name = null;
         Date date;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(f);
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
+            Document doc = dBuilder.parse(stream);
 
             doc.getDocumentElement().normalize();
             	
@@ -649,12 +672,21 @@ public class ParseElement {
         Performer protagonist;
         String[] sProtagonist = null;
         String[] webs = null;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(f);
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
+            Document doc = dBuilder.parse(stream);
 
             doc.getDocumentElement().normalize();
             	
@@ -798,11 +830,20 @@ public class ParseElement {
         Date startDate;
         Date endDate;
         String name = null;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
             Document doc = dBuilder.parse(f);
 
             doc.getDocumentElement().normalize();
@@ -917,9 +958,16 @@ public class ParseElement {
         String street = null;
         Short number = 0;
         String web = null;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(f);
@@ -1046,11 +1094,20 @@ public class ParseElement {
         float price = 0;
         String cCard = null;
         Date soldDate;
+        String sCadena;
+        String str = "";
         
         try {
             
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
             Document doc = dBuilder.parse(f);
 
             doc.getDocumentElement().normalize();
@@ -1131,6 +1188,100 @@ public class ParseElement {
         
         try {
             
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            String str2 = str.replaceFirst("<?.*?>", "");
+            InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
+            Document doc = dBuilder.parse(stream);
+
+            doc.getDocumentElement().normalize();
+            	
+            NodeList nList = doc.getElementsByTagName("ticket");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+
+                Node nNode = nList.item(temp);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element tElement = (Element) nNode;                    
+                    
+                    id = Integer.parseInt(tElement.getElementsByTagName("id").item(0).getTextContent());
+                    
+                    Node eventNode = tElement.getElementsByTagName("events").item(0);
+                    String[] test = str.split("</?events>");
+                    String[] test2 = test[1].split("</?event>");
+                    Element eElement = (Element) eventNode;
+                    NodeList eventList = eElement.getElementsByTagName("event");
+                    sEvent = new String[eventList.getLength()];
+                    int idx=0;
+                    String aux="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><event>";
+                    String aux2="</event>";
+                    
+                    for (int t = 1; t <= test2.length; t = t + 2){
+                        sEvent[idx] = aux.concat(test2[t]);
+                        sEvent[idx] = sEvent[idx].concat(aux2);
+                        idx++;
+                    }
+                    
+                    Node identifiersNode = tElement.getElementsByTagName("identifiers").item(0);
+                    test = str.split("</?identifiers>");
+                    test2 = test[1].split("</?identifier>");
+                    Element iElement = (Element) identifiersNode;
+                    NodeList identifiersList = iElement.getElementsByTagName("identifier");
+                    sIdentifiers = new String[identifiersList.getLength()];
+                    idx = 0;
+                    aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><event>";
+                    aux2 = "</event>";
+                    
+                    for (int t = 1; t <= test2.length; t = t + 2){
+                        sIdentifiers[idx] = aux.concat(test2[t]);
+                        sIdentifiers[idx] = sIdentifiers[idx].concat(aux2);
+                        idx++;
+                    }
+                    
+                    sAssociated = tElement.getElementsByTagName("associated").item(0).getTextContent();
+                }
+            }
+            
+            Event[] event = new Event[sEvent.length];
+            for(int t = 0;t < sEvent.length; t++){
+                event[t] = ParseElement.parseEvent(sEvent[t]);
+            }
+            
+            int[] identifiers = new int[sIdentifiers.length];
+            for(int t = 0;t < sIdentifiers.length; t++){
+                identifiers[t] = Integer.parseInt(sIdentifiers[t]);
+            }
+            
+            Client associated = ParseElement.parseClient(sAssociated);
+            
+            ticket = new Ticket(id, event[0], identifiers, associated, used);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ticket;
+    }
+    
+    public static Ticket parseTicket(File f){
+         
+        Ticket ticket = null;
+        int id = 0;
+        String[] sEvent = null;
+        String[] sIdentifiers = null;
+        String sAssociated = null;
+        boolean used = false;
+        String sCadena;
+        String str = "";
+        
+        try {
+            
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            
+            while ((sCadena = bf.readLine())!=null) {
+                str += sCadena;
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             String str2 = str.replaceFirst("<?.*?>", "");

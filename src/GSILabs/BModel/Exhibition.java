@@ -245,15 +245,36 @@ public class Exhibition implements LastingEvent, Comparable, XMLRepresentable{
 
         for (int i = 0; i < timetable.length; i++){
 
-            // cards elements
-            Element xHour = doc.createElement("hour");
-            xHour.appendChild(doc.createTextNode(this.getStartDate().toString()));
-            xTimetable.appendChild(xHour);
-            
-            // set attribute to card element
-            Attr attr = doc.createAttribute("hour");
-            attr.setValue("open");
-            xHour.setAttributeNode(attr);
+            // date elements
+            Element xDate = doc.createElement("date");
+            xTimetable.appendChild(xDate);
+            int year = this.timetable[i].getYear() + 1900;
+            int month = this.timetable[i].getMonth() + 1;
+            int day = this.timetable[i].getDate();
+
+            Element xYear = doc.createElement("year");
+            xYear.appendChild(doc.createTextNode(Integer.toString(year)));
+            xDate.appendChild(xYear);
+
+            // month elements
+            Element xMonth = doc.createElement("month");
+            xMonth.appendChild(doc.createTextNode(Integer.toString(month)));
+            xDate.appendChild(xMonth);
+
+            // day elements
+            Element xDay = doc.createElement("day");
+            xDay.appendChild(doc.createTextNode(Integer.toString(day)));
+            xDate.appendChild(xDay);
+            int hours = this.timetable[i].getHours() + 1;
+            int minutes = this.timetable[i].getMinutes() + 1;
+
+            Element xHour = doc.createElement("hours");
+            xHour.appendChild(doc.createTextNode(Integer.toString(hours)));
+            xDate.appendChild(xHour);
+
+            Element xMinutes = doc.createElement("minutes");
+            xMinutes.appendChild(doc.createTextNode(Integer.toString(minutes)));
+            xDate.appendChild(xMinutes);                       
 
         }
         Element xWebs = doc.createElement("webs");

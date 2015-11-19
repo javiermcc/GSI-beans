@@ -196,9 +196,46 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         
         // date elements
         Element xDate = doc.createElement("date");
-        xDate.appendChild(doc.createTextNode(this.getStartDate().toString()));
+        int year = this.date.getYear() + 1900;
+        int month = this.date.getMonth() + 1;
+        int day = this.date.getDate();
+        rootElement.appendChild(xDate);
+        Element xYear = doc.createElement("year");
+        xYear.appendChild(doc.createTextNode(Integer.toString(year)));
+        xDate.appendChild(xYear);
+        
+        // month elements
+        Element xMonth = doc.createElement("month");
+        xMonth.appendChild(doc.createTextNode(Integer.toString(month)));
+        xDate.appendChild(xMonth);
+        
+        // day elements
+        Element xDay = doc.createElement("day");
+        xDay.appendChild(doc.createTextNode(Integer.toString(day)));
+        xDate.appendChild(xDay);
+        int hours = this.date.getHours() + 1;
+        int minutes = this.date.getMinutes() + 1;
+        
+        Element xHour = doc.createElement("hours");
+        xHour.appendChild(doc.createTextNode(Integer.toString(hours)));
+        xDate.appendChild(xHour);
+        
+        Element xMinutes = doc.createElement("minutes");
+        xMinutes.appendChild(doc.createTextNode(Integer.toString(minutes)));
+        xDate.appendChild(xMinutes);
+        /*String fecha = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
+        xDate.appendChild(doc.createTextNode(fecha));
         rootElement.appendChild(xDate);
         
+        // hour elements
+        Element xHour = doc.createElement("hour");
+        int hours = this.date.getHours() + 1;
+        int minutes = this.date.getMinutes() + 1;
+        
+        String hora = Integer.toString(hours) + ":" + Integer.toString(minutes);
+        xHour.appendChild(doc.createTextNode(hora));
+        rootElement.appendChild(xHour);
+        */
         // write the content into string
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

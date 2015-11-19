@@ -233,15 +233,67 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
         xName.appendChild(doc.createTextNode(this.getName()));
         rootElement.appendChild(xName);
         
-        // startDate elements
-        Element xStartdate = doc.createElement("startDate");
-        xStartdate.appendChild(doc.createTextNode(this.getStartDate().toString()));
-        rootElement.appendChild(xStartdate);
-
+        // date elements
+        Element xStartDate = doc.createElement("startDate");
+        rootElement.appendChild(xStartDate);
+        int year = this.startDate.getYear() + 1900;
+        int month = this.startDate.getMonth() + 1;
+        int day = this.startDate.getDate();
+        
+        Element xYear = doc.createElement("year");
+        xYear.appendChild(doc.createTextNode(Integer.toString(year)));
+        xStartDate.appendChild(xYear);
+        
+        // month elements
+        Element xMonth = doc.createElement("month");
+        xMonth.appendChild(doc.createTextNode(Integer.toString(month)));
+        xStartDate.appendChild(xMonth);
+        
+        // day elements
+        Element xDay = doc.createElement("day");
+        xDay.appendChild(doc.createTextNode(Integer.toString(day)));
+        xStartDate.appendChild(xDay);
+        int hours = this.startDate.getHours() + 1;
+        int minutes = this.startDate.getMinutes() + 1;
+        
+        Element xHour = doc.createElement("hours");
+        xHour.appendChild(doc.createTextNode(Integer.toString(hours)));
+        xStartDate.appendChild(xHour);
+        
+        Element xMinutes = doc.createElement("minutes");
+        xMinutes.appendChild(doc.createTextNode(Integer.toString(minutes)));
+        xStartDate.appendChild(xMinutes);
+       
         // endDate elements
         Element xEndDate = doc.createElement("endDate");
-        xEndDate.appendChild(doc.createTextNode(this.getEndingDate().toString()));
         rootElement.appendChild(xEndDate);
+        year = this.endDate.getYear() + 1900;
+        month = this.endDate.getMonth() + 1;
+        day = this.endDate.getDate();
+        
+        xYear = doc.createElement("year");
+        xYear.appendChild(doc.createTextNode(Integer.toString(year)));
+        xEndDate.appendChild(xYear);
+        
+        // month elements
+        xMonth = doc.createElement("month");
+        xMonth.appendChild(doc.createTextNode(Integer.toString(month)));
+        xEndDate.appendChild(xMonth);
+        
+        // day elements
+        xDay = doc.createElement("day");
+        xDay.appendChild(doc.createTextNode(Integer.toString(day)));
+        xEndDate.appendChild(xDay);
+        hours = this.endDate.getHours() + 1;
+        minutes = this.endDate.getMinutes() + 1;
+        
+        xHour = doc.createElement("hours");
+        xHour.appendChild(doc.createTextNode(Integer.toString(hours)));
+        xEndDate.appendChild(xHour);
+        
+        xMinutes = doc.createElement("minutes");
+        xMinutes.appendChild(doc.createTextNode(Integer.toString(minutes)));
+        xEndDate.appendChild(xMinutes);
         
         // concerts elements
         Element xConcerts = doc.createElement("concerts");
