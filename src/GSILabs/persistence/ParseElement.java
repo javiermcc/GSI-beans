@@ -726,10 +726,9 @@ public class ParseElement {
          
         Festival festival = null;
         String[] sConcert = null;
-        Concert concert;
+        Concert concert = null;
         Date startDate;
         Date endDate;
-        Location location;
         String name = null;
         
         try {
@@ -775,11 +774,16 @@ public class ParseElement {
                 }
             }
             
-            String sCon= sConcert[0];
-            concert = ParseElement.parseConcert(sCon);
-           
-            festival = new Festival(concert, startDate, endDate, name);
-        
+            Concert[] sCon = new Concert[sConcert.length];
+            for (int t = 0; t < sConcert.length; t++){
+                sCon[t] = ParseElement.parseConcert(sConcert[t]);
+            }
+            
+            festival = new Festival(sCon[0], startDate, endDate, name);
+            for(int j = 1; j < sCon.length; j++){
+                festival.addConcert(sCon[j]);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -790,10 +794,9 @@ public class ParseElement {
          
         Festival festival = null;
         String[] sConcert = null;
-        Concert concert;
+        Concert concert = null;
         Date startDate;
         Date endDate;
-        Location location;
         String name = null;
         
         try {
@@ -837,11 +840,16 @@ public class ParseElement {
                 }
             }
             
-            String sCon= sConcert[0];
-            concert = ParseElement.parseConcert(sCon);
-           
-            festival = new Festival(concert, startDate, endDate, name);
-        
+            Concert[] sCon = new Concert[sConcert.length];
+            for (int t = 0; t < sConcert.length; t++){
+                sCon[t] = ParseElement.parseConcert(sConcert[t]);
+            }
+            
+            festival = new Festival(sCon[0], startDate, endDate, name);
+            for(int j = 1; j < sCon.length; j++){
+                festival.addConcert(sCon[j]);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -949,10 +957,10 @@ public class ParseElement {
     public static Sale parseSale(String str){
          
         Sale sale = null;
-        Client client;
-        Ticket ticket;
-        float price;
-        String cCard;
+        String[] sClient = null;
+        String[] sTicket = null;
+        float price = 0;
+        String cCard = null;
         Date soldDate;
         
         try {
@@ -975,11 +983,136 @@ public class ParseElement {
 
                     Element sElement = (Element) nNode;                    
                     
+                    Node clientNode = sElement.getElementsByTagName("clients").item(0);
+                    String[] test = str.split("</?clients>");
+                    String[] test2 = test[1].split("</?client>");
+                    Element cElement = (Element) clientNode;
+                    NodeList clientList = cElement.getElementsByTagName("client");
+                    sClient = new String[clientList.getLength()];
+                    int idx=0;
+                    String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><artist>";
+                    String aux2 = "</artist>";
                     
+                    for (int t = 1; t <= test2.length; t=t+2){
+                        sClient[idx]=aux.concat(test2[t]);
+                        sClient[idx]=sClient[idx].concat(aux2);
+                        idx=idx+1;
+                    }
                     
+                    Node ticketNode = sElement.getElementsByTagName("tickets").item(0);
+                    String[] test3 = str.split("</?tickets>");
+                    String[] test4 = test3[1].split("</?ticket>");
+                    Element tElement = (Element) clientNode;
+                    NodeList ticketList = tElement.getElementsByTagName("ticket");
+                    sTicket = new String[ticketList.getLength()];
+                    idx = 0;
+                    aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ticket>";
+                    aux2 = "</ticket>";
+                    
+                    for (int t = 1; t <= test4.length; t=t+2){
+                        sTicket[idx] = aux.concat(test4[t]);
+                        sTicket[idx] = sTicket[idx].concat(aux2);
+                        idx = idx+1;
+                    }
+                    
+                    price = Float.parseFloat(sElement.getElementsByTagName("price").item(0).getTextContent());
+                    cCard = sElement.getElementsByTagName("card").item(0).getTextContent();
                 }
             }
-            sale = new Sale(client, ticket, price, cCard);
+            
+            Client[] sCli = new Client[sClient.length];
+            for(int t = 0; t < sClient.length; t++){
+                sCli[t] = ParseElement.parseClient(sClient[t]);
+            }
+            
+            Ticket[] sTic = new Ticket[sTicket.length];
+            for(int t = 0; t < sTicket.length; t++){
+                sTic[t] = ParseElement.parseTicket(sTicket[t]);
+            }
+            
+            sale = new Sale(sCli[0], sTic[0], price, cCard);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sale;
+    }
+    
+    public static Sale parseSale(File f){
+         
+        Sale sale = null;
+        String[] sClient = null;
+        String[] sTicket = null;
+        float price = 0;
+        String cCard = null;
+        Date soldDate;
+        
+        try {
+            
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(f);
+
+            doc.getDocumentElement().normalize();
+            	
+            NodeList nList = doc.getElementsByTagName("sale");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+
+                Node nNode = nList.item(temp);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element sElement = (Element) nNode;                    
+                    
+                    Node clientNode = sElement.getElementsByTagName("clients").item(0);
+                    String[] test = str.split("</?clients>");
+                    String[] test2 = test[1].split("</?client>");
+                    Element cElement = (Element) clientNode;
+                    NodeList clientList = cElement.getElementsByTagName("client");
+                    sClient = new String[clientList.getLength()];
+                    int idx=0;
+                    String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><artist>";
+                    String aux2 = "</artist>";
+                    
+                    for (int t = 1; t <= test2.length; t=t+2){
+                        sClient[idx]=aux.concat(test2[t]);
+                        sClient[idx]=sClient[idx].concat(aux2);
+                        idx=idx+1;
+                    }
+                    
+                    Node ticketNode = sElement.getElementsByTagName("tickets").item(0);
+                    String[] test3 = str.split("</?tickets>");
+                    String[] test4 = test3[1].split("</?ticket>");
+                    Element tElement = (Element) clientNode;
+                    NodeList ticketList = tElement.getElementsByTagName("ticket");
+                    sTicket = new String[ticketList.getLength()];
+                    idx = 0;
+                    aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ticket>";
+                    aux2 = "</ticket>";
+                    
+                    for (int t = 1; t <= test4.length; t=t+2){
+                        sTicket[idx] = aux.concat(test4[t]);
+                        sTicket[idx] = sTicket[idx].concat(aux2);
+                        idx = idx+1;
+                    }
+                    
+                    price = Float.parseFloat(sElement.getElementsByTagName("price").item(0).getTextContent());
+                    cCard = sElement.getElementsByTagName("card").item(0).getTextContent();
+                }
+            }
+            
+            Client[] sCli = new Client[sClient.length];
+            for(int t = 0; t < sClient.length; t++){
+                sCli[t] = ParseElement.parseClient(sClient[t]);
+            }
+            
+            Ticket[] sTic = new Ticket[sTicket.length];
+            for(int t = 0; t < sTicket.length; t++){
+                sTic[t] = ParseElement.parseTicket(sTicket[t]);
+            }
+            
+            sale = new Sale(sCli[0], sTic[0], price, cCard);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -991,9 +1124,9 @@ public class ParseElement {
          
         Ticket ticket = null;
         int id = 0;
-        Event event;
-        int[] identifiers;
-        Client associated;
+        String[] sEvent = null;
+        String[] sIdentifiers = null;
+        String sAssociated = null;
         boolean used = false;
         
         try {
@@ -1016,11 +1149,57 @@ public class ParseElement {
 
                     Element tElement = (Element) nNode;                    
                     
+                    id = Integer.parseInt(tElement.getElementsByTagName("id").item(0).getTextContent());
                     
+                    Node eventNode = tElement.getElementsByTagName("events").item(0);
+                    String[] test = str.split("</?events>");
+                    String[] test2 = test[1].split("</?event>");
+                    Element eElement = (Element) eventNode;
+                    NodeList eventList = eElement.getElementsByTagName("event");
+                    sEvent = new String[eventList.getLength()];
+                    int idx=0;
+                    String aux="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><event>";
+                    String aux2="</event>";
                     
+                    for (int t = 1; t <= test2.length; t = t + 2){
+                        sEvent[idx] = aux.concat(test2[t]);
+                        sEvent[idx] = sEvent[idx].concat(aux2);
+                        idx++;
+                    }
+                    
+                    Node identifiersNode = tElement.getElementsByTagName("identifiers").item(0);
+                    test = str.split("</?identifiers>");
+                    test2 = test[1].split("</?identifier>");
+                    Element iElement = (Element) identifiersNode;
+                    NodeList identifiersList = iElement.getElementsByTagName("identifier");
+                    sIdentifiers = new String[identifiersList.getLength()];
+                    idx = 0;
+                    aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><event>";
+                    aux2 = "</event>";
+                    
+                    for (int t = 1; t <= test2.length; t = t + 2){
+                        sIdentifiers[idx] = aux.concat(test2[t]);
+                        sIdentifiers[idx] = sIdentifiers[idx].concat(aux2);
+                        idx++;
+                    }
+                    
+                    sAssociated = tElement.getElementsByTagName("associated").item(0).getTextContent();
                 }
             }
-            ticket = new Ticket(id, event, identifiers, associated, used);
+            
+            Event[] event = new Event[sEvent.length];
+            for(int t = 0;t < sEvent.length; t++){
+                event[t] = ParseElement.parseEvent(sEvent[t]);
+            }
+            
+            int[] identifiers = new int[sIdentifiers.length];
+            for(int t = 0;t < sIdentifiers.length; t++){
+                identifiers[t] = Integer.parseInt(sIdentifiers[t]);
+            }
+            
+            Client associated = ParseElement.parseClient(sAssociated);
+            
+            ticket = new Ticket(id, event[0], identifiers, associated, used);
             
         } catch (Exception e) {
             e.printStackTrace();
