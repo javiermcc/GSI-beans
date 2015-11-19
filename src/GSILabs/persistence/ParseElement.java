@@ -401,15 +401,15 @@ public class ParseElement {
          
         Concert concert = null;
         Location location;
-        String[] sLocation = null;
         Performer performer;
-        String[] sPerformer = null;
         String name = null;
         int year = 0;
         int month = 0;
         int day = 0;
         Date date;
-        String slocati=null;
+        String sLocation = null;
+        String sp = null;
+        String type = null;
         
         try {
             
@@ -431,55 +431,48 @@ public class ParseElement {
 
                     Element eElement = (Element) nNode;
 
-                    //Node locationNode = eElement.getElementsByTagName("location").item(0);
                     String[] test = str.split("</?location>");
 
-                    int idx = 0;
                     String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>";
                     String aux2 = "</location>";
+
+                    sLocation = aux.concat(test[1]);
+                    sLocation = sLocation.concat(aux2);
                     
-                    System.out.println(test[1]);
-                    slocati= aux.concat(test[1]);
-                    slocati = slocati.concat(aux2);
-                    
-                    
-                    Node performerNode = eElement.getElementsByTagName("performer").item(0);
                     String[] test3 = str.split("</?performer>");
                     String[] test4 = test3[1].split("</?performer>");
-                    Element pElement = (Element) performerNode;
-                    NodeList performerList = pElement.getElementsByTagName("performer");
-                    sPerformer = new String[performerList.getLength()];
-                    idx = 0;
+
                     aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><performer>";
                     aux2 = "</performer>";
-                    
-                    for (int t = 1; t <= test4.length; t=t+2){
-                        sPerformer[idx] = aux.concat(test2[t]);
-                        sPerformer[idx] = sPerformer[idx].concat(aux2);
-                        idx++;
+                    if (test4[0].contains("collective")){
+                        type = "Collective";
+                    } else {
+                        type = "Artist";
                     }
-                    
+                    sp = aux.concat(test4[0]);
+                    sp = sp.concat(aux2);
+
                     name = eElement.getElementsByTagName("name").item(0).getTextContent();
 
                     year = Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent());
                     month = Integer.parseInt(eElement.getElementsByTagName("month").item(0).getTextContent());
                     day = Integer.parseInt(eElement.getElementsByTagName("day").item(0).getTextContent());
-                    
-                    
+
                 }
-                
+            }
+
+            location = ParseElement.parseLocation(sLocation);
+
+            if (type.equals("Artist")){ 
+                performer = ParseElement.parseArtist(sp);
+            } else {
+                performer = ParseElement.parseCollective(sp);
             }
             
-            
-            location = ParseElement.parseLocation(slocati);
-            
-            String sPerfo = sPerformer[0];
-            performer = ParseElement.parseArtist(sPerfo);
-
             date = new Date(year-1900, month-1, day);
-            
+
             concert = new Concert(location, performer, name, date);
-        
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -490,11 +483,15 @@ public class ParseElement {
          
         Concert concert = null;
         Location location;
-        String[] sLocation = null;
         Performer performer;
-        String[] sPerformer = null;
         String name = null;
+        int year = 0;
+        int month = 0;
+        int day = 0;
         Date date;
+        String sLocation = null;
+        String sp = null;
+        String type = null;
         String sCadena;
         String str = "";
         
@@ -523,52 +520,48 @@ public class ParseElement {
 
                     Element eElement = (Element) nNode;
 
-                    Node locationNode = eElement.getElementsByTagName("location").item(0);
                     String[] test = str.split("</?location>");
-                    String[] test2 = test[1].split("</?location>");
-                    Element lElement = (Element) locationNode;
-                    NodeList locationList = lElement.getElementsByTagName("location");
-                    sLocation = new String[locationList.getLength()];
-                    int idx = 0;
+
                     String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><location>";
                     String aux2 = "</location>";
+
+                    sLocation = aux.concat(test[1]);
+                    sLocation = sLocation.concat(aux2);
                     
-                    for (int t = 1; t <= test2.length; t=t+2){
-                        sLocation[idx] = aux.concat(test2[t]);
-                        sLocation[idx] = sLocation[idx].concat(aux2);
-                        idx++;
-                    }
-                    
-                    Node performerNode = eElement.getElementsByTagName("performer").item(0);
                     String[] test3 = str.split("</?performer>");
                     String[] test4 = test3[1].split("</?performer>");
-                    Element pElement = (Element) performerNode;
-                    NodeList performerList = pElement.getElementsByTagName("performer");
-                    sPerformer = new String[performerList.getLength()];
-                    idx = 0;
+
                     aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><performer>";
                     aux2 = "</performer>";
-                    
-                    for (int t = 1; t <= test4.length; t=t+2){
-                        sPerformer[idx] = aux.concat(test2[t]);
-                        sPerformer[idx] = sPerformer[idx].concat(aux2);
-                        idx++;
+                    if (test4[0].contains("collective")){
+                        type = "Collective";
+                    } else {
+                        type = "Artist";
                     }
-                    
+                    sp = aux.concat(test4[0]);
+                    sp = sp.concat(aux2);
+
                     name = eElement.getElementsByTagName("name").item(0).getTextContent();
-                    date = eElement.getElementsByTagName("date").item(0).toString(); 
+
+                    year = Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent());
+                    month = Integer.parseInt(eElement.getElementsByTagName("month").item(0).getTextContent());
+                    day = Integer.parseInt(eElement.getElementsByTagName("day").item(0).getTextContent());
+
                 }
             }
-            
-            String slocati= sLocation[0];
-            location = ParseElement.parseLocation(slocati);
-            
-            String sPerfo = sPerformer[0];
-            performer = ParseElement.parseArtist(sPerfo);
 
+            location = ParseElement.parseLocation(sLocation);
+
+            if (type.equals("Artist")){ 
+                performer = ParseElement.parseArtist(sp);
+            } else {
+                performer = ParseElement.parseCollective(sp);
+            }
             
+            date = new Date(year-1900, month-1, day);
+
             concert = new Concert(location, performer, name, date);
-        
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1274,6 +1267,8 @@ public class ParseElement {
         boolean used = false;
         String sCadena;
         String str = "";
+        String[] test2 = null;
+        Event event = null;
         
         try {
             
@@ -1303,8 +1298,19 @@ public class ParseElement {
                     id = Integer.parseInt(tElement.getElementsByTagName("id").item(0).getTextContent());
                     
                     Node eventNode = tElement.getElementsByTagName("events").item(0);
-                    String[] test = str.split("</?events>");
-                    String[] test2 = test[1].split("</?event>");
+                    String[] test = str.split("</?event>");
+                    System.out.println("hola"+test[1]);
+                    
+                    if (test[1].contains("<concert>")){
+                        //test2 = test[1].split("</?concert>");
+                        System.out.println("a1dios");
+                        Concert concert = ParseElement.parseConcert("<?.*?>"+test[1]);
+                        event = (Event) concert;
+                        System.out.println("adios");
+                    }
+                    
+                    System.out.println("adios"+test2[1]);
+                    
                     Element eElement = (Element) eventNode;
                     NodeList eventList = eElement.getElementsByTagName("event");
                     sEvent = new String[eventList.getLength()];
@@ -1338,10 +1344,6 @@ public class ParseElement {
                 }
             }
             
-            Event[] event = new Event[sEvent.length];
-            for(int t = 0;t < sEvent.length; t++){
-                event[t] = ParseElement.parseEvent(sEvent[t]);
-            }
             
             int[] identifiers = new int[sIdentifiers.length];
             for(int t = 0;t < sIdentifiers.length; t++){
@@ -1350,8 +1352,8 @@ public class ParseElement {
             
             Client associated = ParseElement.parseClient(sAssociated);
             
-            ticket = new Ticket(id, event[0], identifiers, associated, used);
-            
+            ticket = new Ticket(id, event, identifiers, associated, used);
+            System.out.println("ticket"+ticket.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -38,10 +38,10 @@ public class XMLTester {
     
         BusinessSystem bus = new BusinessSystem();
     
-        Artist art1 = new Artist("Nombre 1", "Descripcion 1", "Web 1");
-        Artist art2 = new Artist("Nombre 2", "Descripcion 2", "Web 2");
-        Artist art3 = new Artist("Nombre 3", "Descripcion 3", "Web 3");
-        Artist art4 = new Artist("Nombre 4", "Descripcion 4");
+        Artist art1 = new Artist("Artista 1", "Descripcion 1", "Web 1");
+        Artist art2 = new Artist("Artista 2", "Descripcion 2", "Web 2");
+        Artist art3 = new Artist("Artista 3", "Descripcion 3", "Web 3");
+        Artist art4 = new Artist("Artista 4", "Descripcion 4");
         
         bus.addArtist(art1);
         bus.addArtist(art2);
@@ -129,20 +129,25 @@ public class XMLTester {
 
         
         
-        File ff = new File("/home/linux1/busf.xml");
+        File ff = new File("/home/elementary/busf.xml");
         bus.saveToXML(ff);
         
 
         cli1.addCard("32");
         cli1.addCard("34");
-        File fi = new File("/home/linux1/con.xml");
-        //con1.saveToXML(fi);
-        String asdf = con1.toXML();
+        File fi = new File("/home/elementary/con.xml");
+        con2.saveToXML(fi);
+        String asdf = con2.toXML();
 
         //String fi2 = "/home/linux1/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
         //ParseElement x = new ParseElement();// los metodos tienen que ser estaticos , nohay q instanciar la clase
 
-        Concert cola = ParseElement.parseConcert(asdf);
+        Concert cola = ParseElement.parseConcert(fi);
+        System.out.println(cola);
+        System.out.println("**********************************************");
+        cola = ParseElement.parseConcert(asdf);
+        System.out.println("**********************************************");
+        System.out.println("**********************************************");
         System.out.println(cola);
 
         /*bus.addArtist(z);*/
@@ -150,7 +155,7 @@ public class XMLTester {
         
         
         
-        File f = new File("/home/linux1/bus.xml");
+        File f = new File("/home/elementary/bus.xml");
         bus.saveToXML(f);
     }
 }
