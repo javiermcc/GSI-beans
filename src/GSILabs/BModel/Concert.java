@@ -197,10 +197,8 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         
         // performer elements
         Element xPerformer = doc.createElement("performer");
-        System.out.println(this.performer.getClass());
         String q = this.performer.getClass().toString();
         String[] q2 = q.split("/?BModel.");
-        System.out.println(q2[1]);
         
         if (q2[1].equalsIgnoreCase("Artist")){
             xPerformer.appendChild(doc.createTextNode("##A##"));
