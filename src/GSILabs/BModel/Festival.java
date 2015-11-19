@@ -175,6 +175,7 @@ public class Festival implements LastingEvent, Comparable, XMLRepresentable{
     public String toString(){
         String s="";
         s=s+"Festival which name is "+this.getName()+"\n";
+        s = s + "Festival starts: "+ this.getStartDate().toString() + "\n" + "Ends: " + this.getEndingDate().toString() + "\n";
         Concert c;
         Iterator<Concert> itc= concerts.iterator();
         s=s+"Involves the following concerts:\n";

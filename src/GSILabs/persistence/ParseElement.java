@@ -296,7 +296,7 @@ public class ParseElement {
                     for (int t = 1; t <= test2.length; t=t+2){
                         artistas[idx]=aux.concat(test2[t]);
                         artistas[idx]=artistas[idx].concat(aux2);
-                        idx=idx+1;
+                        idx++;
                     }
                     
                 }
@@ -375,7 +375,7 @@ public class ParseElement {
                     for (int t = 1; t <= test2.length; t=t+2){
                         artistas[idx]=aux.concat(test2[t]);
                         artistas[idx]=artistas[idx].concat(aux2);
-                        idx=idx+1;
+                        idx++;
                     }
                     
                 }
@@ -751,9 +751,6 @@ public class ParseElement {
          
         Festival festival = null;
         String[] sConcert = null;
-        Concert concert = null;
-        Date startDate;
-        Date endDate;
         String name = null;
         
         try {
@@ -778,35 +775,33 @@ public class ParseElement {
                     
                     Node concertNode = eElement.getElementsByTagName("concerts").item(0);
                     String[] test = str.split("</?concerts>");
-                    String[] test2 = test[1].split("</?concerts>");
+                    String[] test2 = test[1].split("</?concert>");
                     Element cElement = (Element) concertNode;
                     NodeList concertList = cElement.getElementsByTagName("concert");
                     sConcert = new String[concertList.getLength()];
-                    int idx = 0;
-                    String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><concert>";
-                    String aux2 = "</concert>";
+                    
+                    int idx=0;
+                    String aux="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><concert>";
+                    String aux2="</concert>";
                     
                     for (int t = 1; t <= test2.length; t=t+2){
                         sConcert[idx] = aux.concat(test2[t]);
                         sConcert[idx] = sConcert[idx].concat(aux2);
                         idx++;
                     }
-                     
-                    startDate = ;
-                    endDate = ;
-                    
-                    name = eElement.getElementsByTagName("name").item(0).getTextContent();
+
+                    name = eElement.getElementsByTagName("name").item(0).getTextContent();   
                 }
             }
             
-            Concert[] sCon = new Concert[sConcert.length];
-            for (int t = 0; t < sConcert.length; t++){
-                sCon[t] = ParseElement.parseConcert(sConcert[t]);
+            Concert[] concerts = new Concert[sConcert.length];
+            for(int t = 0;t < sConcert.length;t++){
+                concerts[t] = ParseElement.parseConcert(sConcert[t]);
             }
-            
-            festival = new Festival(sCon[0], startDate, endDate, name);
-            for(int j = 1; j < sCon.length; j++){
-                festival.addConcert(sCon[j]);
+
+            festival = new Festival(concerts[0], concerts[0].getStartDate(), concerts[concerts.length-1].getStartDate(), name);
+            for(int j = 1; j < concerts.length; j++){
+                festival.addConcert(concerts[j]);
             }
             
         } catch (Exception e) {
@@ -819,12 +814,11 @@ public class ParseElement {
          
         Festival festival = null;
         String[] sConcert = null;
-        Concert concert = null;
-        Date startDate;
-        Date endDate;
         String name = null;
         String sCadena;
         String str = "";
+
+
         
         try {
             
@@ -837,7 +831,7 @@ public class ParseElement {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             String str2 = str.replaceFirst("<?.*?>", "");
             InputStream stream = new ByteArrayInputStream(str2.getBytes(StandardCharsets.UTF_8));
-            Document doc = dBuilder.parse(f);
+            Document doc = dBuilder.parse(stream);
 
             doc.getDocumentElement().normalize();
             	
@@ -853,35 +847,33 @@ public class ParseElement {
                     
                     Node concertNode = eElement.getElementsByTagName("concerts").item(0);
                     String[] test = str.split("</?concerts>");
-                    String[] test2 = test[1].split("</?concerts>");
+                    String[] test2 = test[1].split("</?concert>");
                     Element cElement = (Element) concertNode;
                     NodeList concertList = cElement.getElementsByTagName("concert");
                     sConcert = new String[concertList.getLength()];
-                    int idx = 0;
-                    String aux = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><concert>";
-                    String aux2 = "</concert>";
+                    
+                    int idx=0;
+                    String aux="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><concert>";
+                    String aux2="</concert>";
                     
                     for (int t = 1; t <= test2.length; t=t+2){
                         sConcert[idx] = aux.concat(test2[t]);
                         sConcert[idx] = sConcert[idx].concat(aux2);
                         idx++;
                     }
-                     
-                    startDate = ;
-                    endDate = ;
-                    
-                    name = eElement.getElementsByTagName("name").item(0).getTextContent();
+
+                    name = eElement.getElementsByTagName("name").item(0).getTextContent();   
                 }
             }
             
-            Concert[] sCon = new Concert[sConcert.length];
-            for (int t = 0; t < sConcert.length; t++){
-                sCon[t] = ParseElement.parseConcert(sConcert[t]);
+            Concert[] concerts = new Concert[sConcert.length];
+            for(int t = 0;t < sConcert.length;t++){
+                concerts[t] = ParseElement.parseConcert(sConcert[t]);
             }
-            
-            festival = new Festival(sCon[0], startDate, endDate, name);
-            for(int j = 1; j < sCon.length; j++){
-                festival.addConcert(sCon[j]);
+
+            festival = new Festival(concerts[0], concerts[0].getStartDate(), concerts[concerts.length-1].getStartDate(), name);
+            for(int j = 1; j < concerts.length; j++){
+                festival.addConcert(concerts[j]);
             }
             
         } catch (Exception e) {
@@ -1037,7 +1029,7 @@ public class ParseElement {
                     for (int t = 1; t <= test2.length; t=t+2){
                         sClient[idx]=aux.concat(test2[t]);
                         sClient[idx]=sClient[idx].concat(aux2);
-                        idx=idx+1;
+                        idx++;
                     }
                     
                     Node ticketNode = sElement.getElementsByTagName("tickets").item(0);
@@ -1128,7 +1120,7 @@ public class ParseElement {
                     for (int t = 1; t <= test2.length; t=t+2){
                         sClient[idx]=aux.concat(test2[t]);
                         sClient[idx]=sClient[idx].concat(aux2);
-                        idx=idx+1;
+                        idx++;
                     }
                     
                     Node ticketNode = sElement.getElementsByTagName("tickets").item(0);

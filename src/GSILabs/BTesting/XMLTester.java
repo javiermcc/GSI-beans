@@ -70,15 +70,15 @@ public class XMLTester {
         bus.addClient(cli2);
         
                                                             //year - 1900,  month - 1, day
-        Concert con1 = new Concert(l1, art1, "Concierto 1", new Date(2000-1900, 3, 10));
-        Concert con2 = new Concert(l2, col1, "Concierto 2", new Date(2000-1900, 2, 2));
+        Concert con1 = new Concert(l1, art1, "Concierto 1", new Date(2000-1900, 11, 10));
+        Concert con2 = new Concert(l2, col1, "Concierto 2", new Date(2000-1900, 11, 13));
         
         bus.addNewConcert(con1);
         bus.addNewConcert(con2);//no se ade por l2
         
         Date[] date = new Date[2];
-        date[0] = new Date(2000-1900,11,12);
-        date[1] = new Date(2000-1900,11,13);
+        date[0] = new Date(2001-1900,10,12);
+        date[1] = new Date(2001-1900,11,14);
         String[] webs = new String[2];
         webs[0] = "Web 1";
         webs[1] = "Web 2";
@@ -135,17 +135,17 @@ public class XMLTester {
 
         cli1.addCard("32");
         cli1.addCard("34");
-        File fi = new File("/home/elementary/con.xml");
-        con2.saveToXML(fi);
-        String asdf = con2.toXML();
+        File fi = new File("/home/elementary/fes.xml");
+        //f1.saveToXML(fi);
+        String asdf = f1.toXML();
 
         //String fi2 = "/home/linux1/artist.xml"; //no se si se refiere a esto con lo de string o meter directamente el xml
         //ParseElement x = new ParseElement();// los metodos tienen que ser estaticos , nohay q instanciar la clase
 
-        Concert cola = ParseElement.parseConcert(fi);
+        Festival cola = ParseElement.parseFestival(fi);
         System.out.println(cola);
         System.out.println("**********************************************");
-        cola = ParseElement.parseConcert(asdf);
+        cola = ParseElement.parseFestival(asdf);
         System.out.println("**********************************************");
         System.out.println("**********************************************");
         System.out.println(cola);
