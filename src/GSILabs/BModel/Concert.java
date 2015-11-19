@@ -174,6 +174,7 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
     @Override
     public String toXML() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    String type = null;
     try {
 
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -193,6 +194,24 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         Element xLocation = doc.createElement("location");
         xLocation.appendChild(doc.createTextNode("##L##"));
         rootElement.appendChild(xLocation);
+        
+        // performer elements
+        Element xPerformer = doc.createElement("performer");
+        System.out.println(this.performer.getClass());
+        String q = this.performer.getClass().toString();
+        String[] q2 = q.split("/?BModel.");
+        System.out.println(q2[1]);
+        
+        if (q2[1].equalsIgnoreCase("Artist")){
+            xPerformer.appendChild(doc.createTextNode("##A##"));
+            rootElement.appendChild(xPerformer);
+            type = "Artist";
+        } else {
+            xPerformer.appendChild(doc.createTextNode("##C##"));
+            rootElement.appendChild(xPerformer);
+            type = "Collective";
+        }
+        
         
         // date elements
         Element xDate = doc.createElement("date");
@@ -254,6 +273,23 @@ public class Concert implements ImpermanentEvent,Comparable, XMLRepresentable{
         String l4 = l3.replace("</location>", "");
         finalstring = finalstring.replace("##L##", l4);
        
+        
+        if (type.equals("Artist")){
+            Artist a = (Artist)this.performer;
+            String as = a.toXML();
+            String as2 = as.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##A##", as2);
+        }
+        
+        if (type.equals("Collective")){
+            Collective a = (Collective)this.performer;
+            String as = a.toXML();
+            String as2 = as.replaceFirst("<?.*?>", "");
+            finalstring = finalstring.replace("##C##", as2);
+        }
+        
+        
+        
         return finalstring;
         
 
